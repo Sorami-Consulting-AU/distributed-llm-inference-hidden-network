@@ -1,0 +1,27 @@
+# UTC 2026-09-28T12:13:01Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-stack-vllm exec pod/sorami-lab-vllm-ray-head-k5qp5 -c ray-head -- bash -lc 'ray status --address auto | sed -n 1,20p; curl -s -o /dev/null -w "noauth /v1/models http=%{http_code}\n" http://127.0.0.1:8000/v1/models; env | grep -c VLLM_API_KEY'
+
+======== Autoscaler status: 2026-09-28 05:13:02.522563 ========
+Node status
+---------------------------------------------------------------
+Active:
+ 1 gpu-worker
+ 1 headgroup
+Idle:
+ (no idle nodes)
+Pending:
+ (no pending nodes)
+Recent failures:
+ (no failures)
+
+Resources
+---------------------------------------------------------------
+Total Usage:
+ 0.0/8.0 CPU
+ 2.0/2.0 GPU (2.0 used of 2.0 reserved in placement groups)
+ 0B/21.39GiB memory
+ 0B/9.17GiB object_store_memory
+noauth /v1/models http=200
+0
+command terminated with exit code 1
+# EXIT: 1

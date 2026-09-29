@@ -1,0 +1,7 @@
+# UTC 2026-09-28T06:27:25Z
+# CMD: kubectl --context sorami-lab -n kube-system get ds aws-node -o jsonpath='{.spec.template.spec.containers[*].args}'; echo; kubectl --context sorami-lab -n kube-system get ds aws-node -o jsonpath='{range .spec.template.spec.containers[*]}{.name}{" "}{.args}{"\n"}{end}'
+
+["--enable-ipv6=false","--enable-network-policy=true","--enable-cloudwatch-logs=false","--enable-policy-event-logs=false","--log-file=/var/log/aws-routed-eni/network-policy-agent.log","--metrics-bind-addr=:8162","--health-probe-bind-addr=:8163","--conntrack-cache-cleanup-period=300","--conntrack-cache-table-size=524288","--log-level=debug"]
+aws-node 
+aws-eks-nodeagent ["--enable-ipv6=false","--enable-network-policy=true","--enable-cloudwatch-logs=false","--enable-policy-event-logs=false","--log-file=/var/log/aws-routed-eni/network-policy-agent.log","--metrics-bind-addr=:8162","--health-probe-bind-addr=:8163","--conntrack-cache-cleanup-period=300","--conntrack-cache-table-size=524288","--log-level=debug"]
+# EXIT: 0

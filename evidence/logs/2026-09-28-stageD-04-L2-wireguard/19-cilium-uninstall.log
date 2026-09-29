@@ -1,0 +1,7 @@
+# UTC 2026-09-28T12:41:16Z
+# CMD: helm --kube-context sorami-lab uninstall cilium -n kube-system --wait --timeout 5m; sleep 20; kubectl --context sorami-lab -n kube-system get pods -l k8s-app=cilium; kubectl --context sorami-lab get crd | grep -c cilium || true
+
+release "cilium" uninstalled
+No resources found in kube-system namespace.
+10
+# EXIT: 0

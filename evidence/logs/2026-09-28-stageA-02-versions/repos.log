@@ -1,0 +1,29 @@
+# UTC 2026-09-28T04:17:57Z
+# CMD: helm repo add kuberay https://ray-project.github.io/kuberay-helm/ --force-update; helm repo add vllm https://vllm-project.github.io/production-stack --force-update; helm repo add nvidia https://helm.ngc.nvidia.com/nvidia --force-update; helm repo update
+
+"kuberay" has been added to your repositories
+"vllm" has been added to your repositories
+"nvidia" has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "vllm" chart repository
+...Successfully got an update from the "kuberay" chart repository
+...Successfully got an update from the "smallstep" chart repository
+...Successfully got an update from the "secrets-store-csi-driver" chart repository
+...Successfully got an update from the "external-dns" chart repository
+...Successfully got an update from the "csi-secrets-store-provider-aws" chart repository
+...Successfully got an update from the "kedacore" chart repository
+...Successfully got an update from the "eks" chart repository
+...Successfully got an update from the "sops" chart repository
+...Successfully got an update from the "argo" chart repository
+...Successfully got an update from the "metrics-server" chart repository
+...Successfully got an update from the "open-telemetry" chart repository
+...Successfully got an update from the "cilium" chart repository
+...Successfully got an update from the "nvidia" chart repository
+...Successfully got an update from the "external-secrets" chart repository
+Error: unknown shorthand flag: 'c' in -c
+Error: unknown shorthand flag: 'c' in -c
+...Successfully got an update from the "linkerd" chart repository
+...Successfully got an update from the "helm-microservices" chart repository
+...Successfully got an update from the "jfrog" chart repository
+Update Complete. ⎈Happy Helming!⎈
+# EXIT: 0

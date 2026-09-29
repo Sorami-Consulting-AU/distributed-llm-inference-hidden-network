@@ -1,0 +1,44 @@
+# UTC 2026-09-28T04:18:30Z
+# CMD: helm show values vllm/vllm-stack --version 0.1.12 > test-harness/manifests/rendered-defaults/vllm-stack-0.1.12.values.yaml; grep -nE 'modelSpec|servingEngineSpec|routerSpec|enableEngine|image|port' test-harness/manifests/rendered-defaults/vllm-stack-0.1.12.values.yaml | head -40
+
+5:servingEngineSpec:
+7:  enableEngine: true
+13:  # -- Extra service ports for models
+23:  # -- Array of specifications for configuring multiple serving engine deployments running different models. Each entry in the modelSpec array should contain the following fields
+25:  modelSpec:
+42:    # -- Runtime class for the pod, e.g., "nvidia". If not specified, falls back to servingEngineSpec.runtimeClassName
+49:    imagePullSecret: ""
+111:      # -- The Docker image for the init container
+112:      image: "busybox:latest"
+191:    # -- Per-model tolerations. Interacts with servingEngineSpec.tolerations according to tolerationsPolicy.
+199:    # -- How per-model tolerations interact with global servingEngineSpec.tolerations.
+213:      # -- Minimum number of replicas (supports 0 for scale-to-zero)
+288:        # -- Optional init container run before the Ray head container starts. Mirrors modelSpec.initContainer.
+291:        #   image: "busybox:latest"
+298:      # Worker nodes reuse the top-level modelSpec fields:
+299:      #   - resources come from modelSpec.requestCPU / requestMemory / requestGPU (or modelSpec.resources for a raw override)
+300:      #   - the optional init container comes from modelSpec.initContainer
+302:  # -- Container port
+304:  # -- Service port
+326:      # -- Name or number of the port to access on the container, on which the server is listening
+327:      port: 8000  # @schema type:[integer, string]
+341:      # -- Name or number of the port to access on the container, on which the server is listening
+342:      port: 8000  # @schema type:[integer, string]
+356:      # -- Name or number of the port to access on the container, on which the server is listening
+357:      port: 8000  # @schema type:[integer, string]
+373:  # -- image pull policy for the model deployment
+374:  imagePullPolicy: "Always" # @schema enum:[Always,IfNotPresent,Never]
+409:    # -- Docker image repository and tag for the sidecar
+410:    image: "lmcache/lmstack-sidecar:latest"
+411:    # -- image pull policy for the sidecar
+412:    imagePullPolicy: "Always" # @schema enum:[Always,IfNotPresent,Never]
+428:    # -- Let prometheus add an exported_ prefix to conflicting labels
+437:    #   - exported_namespace
+450:routerSpec:
+453:  # -- The docker image of the router. The following values are defaults:
+457:  # -- image pull policy for the router pod
+458:  imagePullPolicy: "Always" # @schema enum:[Always,IfNotPresent,Never]
+484:  # imagePullSecrets:
+486:  imagePullSecrets: []
+518:  # -- Container port
+# EXIT: 0

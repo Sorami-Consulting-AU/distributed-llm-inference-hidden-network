@@ -1,0 +1,8 @@
+# UTC 2026-09-28T12:27:21Z
+# CMD: echo label='L2b Cilium WireGuard node-to-node encryption (2 x g5.xlarge, no NetworkPolicy, no auth)' svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-47jw9 worker=sorami-lab-vllm-ray-gpu-worker-worker-2sw44; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-ray-head-47jw9 sorami-lab-vllm-ray-gpu-worker-worker-2sw44 -o wide
+
+label=L2b Cilium WireGuard node-to-node encryption (2 x g5.xlarge, no NetworkPolicy, no auth) svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-47jw9 worker=sorami-lab-vllm-ray-gpu-worker-worker-2sw44
+NAME                                            READY   STATUS    RESTARTS   AGE     IP             NODE                                              NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-head-47jw9                1/1     Running   0          4m13s   10.99.19.25    ip-10-99-17-131.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-gpu-worker-worker-2sw44   1/1     Running   0          4m15s   10.99.33.127   ip-10-99-38-120.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

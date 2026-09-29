@@ -1,0 +1,11 @@
+# UTC 2026-09-28T07:26:28Z
+# CMD: kubectl --context sorami-lab apply -f test-harness/manifests/stageC-disagg.yaml
+
+configmap/sorami-lab-disagg-proxy-src unchanged
+deployment.apps/sorami-lab-vllm-prefill configured
+service/sorami-lab-vllm-prefill unchanged
+deployment.apps/sorami-lab-vllm-decode configured
+service/sorami-lab-vllm-decode unchanged
+deployment.apps/sorami-lab-vllm-proxy unchanged
+service/sorami-lab-vllm-proxy unchanged
+# EXIT: 0

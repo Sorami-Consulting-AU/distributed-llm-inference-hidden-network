@@ -1,0 +1,11 @@
+# UTC 2026-09-28T04:17:47Z
+# CMD: kubectl --context sorami-lab get ns -l research=sorami-lab --show-labels
+
+NAME                         STATUS   AGE   LABELS
+sorami-lab-neighbor        Active   1s    kubernetes.io/metadata.name=sorami-lab-neighbor,research=sorami-lab
+sorami-lab-scanners        Active   0s    kubernetes.io/metadata.name=sorami-lab-scanners,research=sorami-lab
+sorami-lab-stack-kuberay   Active   3s    kubernetes.io/metadata.name=sorami-lab-stack-kuberay,research=sorami-lab
+sorami-lab-stack-sglang    Active   3s    kubernetes.io/metadata.name=sorami-lab-stack-sglang,research=sorami-lab
+sorami-lab-stack-triton    Active   2s    kubernetes.io/metadata.name=sorami-lab-stack-triton,research=sorami-lab
+sorami-lab-stack-vllm      Active   4s    kubernetes.io/metadata.name=sorami-lab-stack-vllm,research=sorami-lab
+# EXIT: 0

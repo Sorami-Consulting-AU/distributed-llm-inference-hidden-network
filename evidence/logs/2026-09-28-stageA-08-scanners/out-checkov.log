@@ -1,0 +1,87 @@
+# UTC 2026-09-28T04:37:53Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-scanners logs job/scan-checkov
+
+kubernetes scan results:
+
+Passed checks: 227, Failed checks: 20, Skipped checks: 0
+
+Check: CKV_K8S_43: "Image should use digest"
+	FAILED for resource: Deployment.sorami-lab-stack-kuberay.kuberay-operator
+	File: /all-defaults.yaml:552-626
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39
+Check: CKV_K8S_15: "Image Pull Policy should be Always"
+	FAILED for resource: Deployment.sorami-lab-stack-kuberay.kuberay-operator
+	File: /all-defaults.yaml:552-626
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-14
+Check: CKV_K8S_29: "Apply security context to your pods and containers"
+	FAILED for resource: Deployment.sorami-lab-stack-kuberay.kuberay-operator
+	File: /all-defaults.yaml:552-626
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-securitycontext-is-applied-to-pods-and-containers
+Check: CKV_K8S_40: "Containers should run as a high UID to avoid host conflict"
+	FAILED for resource: Deployment.sorami-lab-stack-kuberay.kuberay-operator
+	File: /all-defaults.yaml:552-626
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-37
+Check: CKV_K8S_38: "Ensure that Service Account Tokens are only mounted where necessary"
+	FAILED for resource: Deployment.sorami-lab-stack-kuberay.kuberay-operator
+	File: /all-defaults.yaml:552-626
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-35
+Check: CKV_K8S_20: "Containers should not run with allowPrivilegeEscalation"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-19
+Check: CKV_K8S_11: "CPU limits should be set"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-10
+Check: CKV_K8S_30: "Apply security context to your containers"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-28
+Check: CKV_K8S_28: "Minimize the admission of containers with the NET_RAW capability"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-27
+Check: CKV_K8S_43: "Image should use digest"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39
+Check: CKV_K8S_14: "Image Tag should be fixed - not latest or blank"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-13
+Check: CKV_K8S_37: "Minimize the admission of containers with capabilities assigned"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-34
+Check: CKV_K8S_29: "Apply security context to your pods and containers"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-securitycontext-is-applied-to-pods-and-containers
+Check: CKV_K8S_22: "Use read-only filesystem for containers where possible"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-21
+Check: CKV_K8S_23: "Minimize the admission of root containers"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-22
+Check: CKV_K8S_40: "Containers should run as a high UID to avoid host conflict"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-37
+Check: CKV_K8S_31: "Ensure that the seccomp profile is set to docker/default or runtime/default"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-29
+Check: CKV_K8S_38: "Ensure that Service Account Tokens are only mounted where necessary"
+	FAILED for resource: Deployment.sorami-lab-stack-vllm.vllm-deployment-router
+	File: /all-defaults.yaml:835-934
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-35
+Check: CKV2_K8S_6: "Minimize the admission of pods which lack an associated NetworkPolicy"
+	FAILED for resource: Pod.sorami-lab-stack-kuberay.kuberay-operator.app.kubernetes.io/name-kuberay-operator.app.kubernetes.io/instance-kuberay-operator.app.kubernetes.io/component-kuberay-operator
+	File: /all-defaults.yaml:552-626
+Check: CKV2_K8S_6: "Minimize the admission of pods which lack an associated NetworkPolicy"
+	FAILED for resource: Pod.sorami-lab-stack-vllm.vllm-deployment-router.app.kubernetes.io/name-router.app.kubernetes.io/instance-vllm.app.kubernetes.io/component-router.app.kubernetes.io/part-of-vllm-stack.app.kubernetes.io/managed-by-helm.environment-router.release-router
+	File: /all-defaults.yaml:835-934
+
+# EXIT: 0

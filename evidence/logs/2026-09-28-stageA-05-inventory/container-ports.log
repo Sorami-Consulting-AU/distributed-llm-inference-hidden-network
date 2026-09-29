@@ -1,0 +1,13 @@
+# UTC 2026-09-28T04:22:28Z
+# CMD: kubectl --context sorami-lab get pods -A -l '!job-name' -o json | python3 -c 'import json,sys
+for p in json.load(sys.stdin)["items"]:
+  ns=p["metadata"]["namespace"]
+  if not ns.startswith("sorami-lab-stack"): continue
+  for c in p["spec"]["containers"]:
+    print(ns,p["metadata"]["name"],p["status"].get("podIP"),c["name"],[(x.get("name"),x["containerPort"]) for x in c.get("ports",[])])'
+
+sorami-lab-stack-kuberay kuberay-operator-6df68f7c7f-xzlmq 10.99.32.82 kuberay-operator [('http', 8080)]
+sorami-lab-stack-kuberay raycluster-kuberay-head-ts4bc 10.99.7.224 ray-head [('metrics', 8080)]
+sorami-lab-stack-kuberay raycluster-kuberay-workergroup-worker-sfp67 10.99.39.62 ray-worker [('metrics', 8080)]
+sorami-lab-stack-vllm vllm-deployment-router-85ffc679b9-gcsk9 10.99.38.225 router-container [('router-port', 8000), ('lmcache-port', 9000)]
+# EXIT: 0

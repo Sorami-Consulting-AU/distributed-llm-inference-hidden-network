@@ -1,0 +1,12 @@
+# UTC 2026-09-28T05:18:34Z
+# CMD: helm --kube-context sorami-lab upgrade --install nvdp nvdp/nvidia-device-plugin --version 0.17.4 -n sorami-lab-gpu-system --create-namespace --set-json 'tolerations=[{"key":"sorami-lab/gpu","operator":"Exists","effect":"NoSchedule"}]' --set-json 'nodeSelector={"sorami-lab/pool":"gpu"}' --wait --timeout 5m
+
+Release "nvdp" does not exist. Installing it now.
+NAME: nvdp
+LAST DEPLOYED: Mon Sep 28 15:18:34 2026
+NAMESPACE: sorami-lab-gpu-system
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+# EXIT: 0

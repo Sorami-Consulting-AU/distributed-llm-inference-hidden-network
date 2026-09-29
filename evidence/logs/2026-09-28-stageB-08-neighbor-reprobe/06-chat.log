@@ -1,0 +1,4 @@
+# UTC 2026-09-28T06:27:19Z
+# CMD: X curl -s --max-time 90 -H 'Content-Type: application/json' -d '{"model":"Qwen/Qwen2.5-7B-Instruct","messages":[{"role":"user","content":"Reply with the single word: reachable"}],"max_tokens":8,"temperature":0}' http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000/v1/chat/completions
+
+{"id":"chatcmpl-f5eaa116e4094b429c32e6214a008ff7","object":"chat.completion","created":1790576839,"model":"Qwen/Qwen2.5-7B-Instruct","choices":[{"index":0,"message":{"role":"assistant","content":"Reachable","refusal":null,"annotations":null,"audio":null,"function_call":null,"tool_calls":[],"reasoning_content":null},"logprobs":null,"finish_reason":"stop","stop_reason":null,"token_ids":null}],"service_tier":null,"system_fingerprint":null,"usage":{"prompt_tokens":36,"total_tokens":39,"completion_tokens":3,"prompt_tokens_details":null},"prompt_logprobs":null,"prompt_token_ids":null,"kv_transfer_params":null}# EXIT: 0

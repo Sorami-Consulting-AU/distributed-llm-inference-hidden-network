@@ -1,0 +1,8 @@
+# UTC 2026-09-28T13:13:38Z
+# CMD: echo label='L0 after (drift bracket): no WireGuard, engine pods on plain VPC CNI path, same nodes' svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-svbpq worker=sorami-lab-vllm-ray-gpu-worker-worker-w28ks; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-ray-head-svbpq sorami-lab-vllm-ray-gpu-worker-worker-w28ks -o wide
+
+label=L0 after (drift bracket): no WireGuard, engine pods on plain VPC CNI path, same nodes svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-svbpq worker=sorami-lab-vllm-ray-gpu-worker-worker-w28ks
+NAME                                            READY   STATUS    RESTARTS        AGE     IP             NODE                                              NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-head-svbpq                1/1     Running   0               3m8s    10.99.29.161   ip-10-99-17-131.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-gpu-worker-worker-w28ks   1/1     Running   1 (2m26s ago)   3m38s   10.99.33.48    ip-10-99-38-120.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

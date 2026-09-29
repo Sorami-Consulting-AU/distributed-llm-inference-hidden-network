@@ -1,0 +1,16 @@
+# UTC 2026-09-28T04:28:52Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-scanners logs job/trivy-config
+
+
+Report Summary
+
+┌────────┬──────┬───────────────────┐
+│ Target │ Type │ Misconfigurations │
+├────────┼──────┼───────────────────┤
+│   -    │  -   │         -         │
+└────────┴──────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+# EXIT: 0

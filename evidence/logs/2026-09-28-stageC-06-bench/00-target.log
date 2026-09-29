@@ -1,0 +1,8 @@
+# UTC 2026-09-28T08:46:33Z
+# CMD: echo label='distributed baseline L0 (no NetworkPolicy, no mTLS, no TLS)' svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-9x4l8 worker=sorami-lab-vllm-ray-gpu-worker-worker-8skhg; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-ray-head-9x4l8 sorami-lab-vllm-ray-gpu-worker-worker-8skhg -o wide
+
+label=distributed baseline L0 (no NetworkPolicy, no mTLS, no TLS) svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-9x4l8 worker=sorami-lab-vllm-ray-gpu-worker-worker-8skhg
+NAME                                            READY   STATUS    RESTARTS   AGE     IP             NODE                                             NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-head-9x4l8                1/1     Running   0          5m53s   10.99.17.121   ip-10-99-31-72.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-gpu-worker-worker-8skhg   1/1     Running   0          5m53s   10.99.13.46    ip-10-99-9-134.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

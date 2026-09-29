@@ -1,0 +1,9 @@
+# UTC 2026-09-28T04:22:27Z
+# CMD: kubectl --context sorami-lab get svc -A -o wide | grep -E 'NAMESPACE|sorami-lab'
+
+NAMESPACE                    NAME                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                         AGE     SELECTOR
+sorami-lab-stack-kuberay   kuberay-operator              ClusterIP   172.20.247.146   <none>        8080/TCP                                        3m34s   app.kubernetes.io/instance=kuberay-operator,app.kubernetes.io/name=kuberay-operator
+sorami-lab-stack-kuberay   raycluster-kuberay-head-svc   ClusterIP   None             <none>        10001/TCP,8265/TCP,6379/TCP,8080/TCP,8000/TCP   2m59s   app.kubernetes.io/created-by=kuberay-operator,app.kubernetes.io/name=kuberay,ray.io/cluster=raycluster-kuberay,ray.io/identifier=raycluster-kuberay-head,ray.io/node-type=head
+sorami-lab-stack-vllm      vllm-mistral-engine-service   ClusterIP   172.20.4.106     <none>        80/TCP,55555/TCP,9999/TCP                       2m58s   app.kubernetes.io/component=serving-engine,app.kubernetes.io/instance=vllm,app.kubernetes.io/managed-by=helm,app.kubernetes.io/name=mistral,app.kubernetes.io/part-of=vllm-stack,environment=test,helm-release-name=vllm,model=mistral,release=test
+sorami-lab-stack-vllm      vllm-router-service           ClusterIP   172.20.81.166    <none>        80/TCP,9000/TCP                                 2m58s   app.kubernetes.io/component=router,app.kubernetes.io/instance=vllm,app.kubernetes.io/managed-by=helm,app.kubernetes.io/name=router,app.kubernetes.io/part-of=vllm-stack,environment=router,release=router
+# EXIT: 0

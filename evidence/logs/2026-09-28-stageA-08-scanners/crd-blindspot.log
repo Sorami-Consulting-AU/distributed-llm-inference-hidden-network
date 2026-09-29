@@ -1,0 +1,7 @@
+# UTC 2026-09-28T04:38:32Z
+# CMD: for f in trivy checkov kubescape; do printf '%s mentions of RayCluster/ray-head/ray-worker: ' $f; grep -aicE 'raycluster|ray-head|ray-worker|headGroupSpec|workerGroupSpecs' ${LOGS:-logs}/2026-09-28-stageA-08-scanners/out-$f.log; done
+
+trivy mentions of RayCluster/ray-head/ray-worker: 0
+checkov mentions of RayCluster/ray-head/ray-worker: 0
+kubescape mentions of RayCluster/ray-head/ray-worker: 0
+# EXIT: 1

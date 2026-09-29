@@ -1,0 +1,4 @@
+# UTC 2026-09-28T06:27:19Z
+# CMD: X curl -s --max-time 90 -H 'Content-Type: application/json' -d '{"model":"Qwen/Qwen2.5-7B-Instruct","prompt":"The capital of France is","max_tokens":8,"temperature":0}' http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000/v1/completions
+
+{"id":"cmpl-1dd039db2d00421ab67ef73c4e6a459a","object":"text_completion","created":1790576840,"model":"Qwen/Qwen2.5-7B-Instruct","choices":[{"index":0,"text":" Paris. Which of the following statements about","logprobs":null,"finish_reason":"length","stop_reason":null,"token_ids":null,"prompt_logprobs":null,"prompt_token_ids":null}],"service_tier":null,"system_fingerprint":null,"usage":{"prompt_tokens":5,"total_tokens":13,"completion_tokens":8,"prompt_tokens_details":null},"kv_transfer_params":null}# EXIT: 0

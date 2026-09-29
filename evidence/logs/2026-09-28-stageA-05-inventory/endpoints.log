@@ -1,0 +1,9 @@
+# UTC 2026-09-28T04:22:27Z
+# CMD: kubectl --context sorami-lab get endpointslices -A -o wide | grep -E 'NAMESPACE|sorami-lab'
+
+NAMESPACE                    NAME                                ADDRESSTYPE   PORTS                         ENDPOINTS                 AGE
+sorami-lab-stack-kuberay   kuberay-operator-t5jxd              IPv4          8080                          10.99.32.82               3m35s
+sorami-lab-stack-kuberay   raycluster-kuberay-head-svc-4hnjw   IPv4          8080,6379,10001 + 2 more...   10.99.7.224               3m
+sorami-lab-stack-vllm      vllm-mistral-engine-service-qjzq2   IPv4          <unset>                       <unset>                   2m59s
+sorami-lab-stack-vllm      vllm-router-service-8crpl           IPv4          9000,8000                     10.99.38.225              2m59s
+# EXIT: 0

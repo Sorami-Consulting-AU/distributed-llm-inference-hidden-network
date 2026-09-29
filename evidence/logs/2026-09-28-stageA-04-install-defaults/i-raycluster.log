@@ -1,0 +1,12 @@
+# UTC 2026-09-28T04:19:27Z
+# CMD: helm --kube-context sorami-lab upgrade --install raycluster kuberay/ray-cluster --version 1.7.1 -n sorami-lab-stack-kuberay --labels research=sorami-lab
+
+Release "raycluster" does not exist. Installing it now.
+NAME: raycluster
+LAST DEPLOYED: Mon Sep 28 14:19:27 2026
+NAMESPACE: sorami-lab-stack-kuberay
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+# EXIT: 0

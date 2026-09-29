@@ -1,0 +1,9 @@
+# UTC 2026-09-28T13:13:26Z
+# CMD: kubectl --context sorami-lab -n kube-system exec pod/cilium-7j22m -c cilium-agent -- cilium-dbg status | grep -E 'Encryption|CNI Chaining|Cilium:'; kubectl --context sorami-lab -n kube-system exec pod/cilium-7j22m -c cilium-agent -- cilium-dbg endpoint list | grep -E '10.99.29.161|ENDPOINT' ; kubectl --context sorami-lab -n kube-system exec pod/cilium-7j22m -c cilium-agent -- sh -c 'grep cilium_wg0 /proc/net/dev || echo no-cilium_wg0-interface'
+
+CNI Chaining:            aws-cni
+Cilium:                  Ok   1.20.2 (v1.20.2-e0dc92bd)
+Encryption:              Disabled   
+ENDPOINT   POLICY (ingress)   POLICY (egress)   IDENTITY   LABELS (source:key[=value])                                   IPv6   IPv4   STATUS   
+no-cilium_wg0-interface
+# EXIT: 0

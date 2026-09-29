@@ -1,0 +1,7 @@
+# UTC 2026-09-28T04:50:06Z
+# CMD: kubectl --context sorami-lab get nodes -L eks.amazonaws.com/capacityType,node.kubernetes.io/instance-type,topology.kubernetes.io/zone,sorami-lab/pool
+
+NAME                                              STATUS   ROLES    AGE     VERSION               CAPACITYTYPE   INSTANCE-TYPE   ZONE              POOL
+ip-10-99-20-246.ap-southeast-2.compute.internal   Ready    <none>   2m14s   v1.35.8-eks-f4fc4f1   SPOT           m7i.xlarge      ap-southeast-2b   
+ip-10-99-35-190.ap-southeast-2.compute.internal   Ready    <none>   2m24s   v1.35.8-eks-f4fc4f1   SPOT           m7i.xlarge      ap-southeast-2c   
+# EXIT: 0

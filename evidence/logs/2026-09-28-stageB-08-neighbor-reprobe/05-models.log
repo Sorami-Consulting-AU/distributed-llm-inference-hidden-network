@@ -1,0 +1,4 @@
+# UTC 2026-09-28T06:27:18Z
+# CMD: X curl -s --max-time 15 http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000/v1/models
+
+{"object":"list","data":[{"id":"Qwen/Qwen2.5-7B-Instruct","object":"model","created":1790576839,"owned_by":"vllm","root":"Qwen/Qwen2.5-7B-Instruct","parent":null,"max_model_len":8192,"permission":[{"id":"modelperm-d1e5f4547daf46eda51c4532396726ae","object":"model_permission","created":1790576839,"allow_create_engine":false,"allow_sampling":true,"allow_logprobs":true,"allow_search_indices":false,"allow_view":true,"allow_fine_tuning":false,"organization":"*","group":null,"is_blocking":false}]}]}# EXIT: 0

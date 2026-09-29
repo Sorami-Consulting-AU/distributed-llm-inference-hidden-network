@@ -1,0 +1,11 @@
+# UTC 2026-09-28T04:23:19Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-neighbor exec sorami-lab-neighbor -- sh -c 'id; ls /var/run/secrets/kubernetes.io/serviceaccount 2>&1; cat /proc/self/status | grep Cap'
+
+uid=1000 gid=1000 groups=1000
+ls: /var/run/secrets/kubernetes.io/serviceaccount: No such file or directory
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	0000000000000000
+CapAmb:	0000000000000000
+# EXIT: 0

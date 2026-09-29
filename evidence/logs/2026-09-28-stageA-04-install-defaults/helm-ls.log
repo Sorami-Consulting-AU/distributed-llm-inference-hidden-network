@@ -1,0 +1,8 @@
+# UTC 2026-09-28T04:21:00Z
+# CMD: helm --kube-context sorami-lab ls -A
+
+NAME            	NAMESPACE                 	REVISION	UPDATED                              	STATUS  	CHART                 	APP VERSION
+kuberay-operator	sorami-lab-stack-kuberay	1       	2026-09-28 14:18:51.946922 +1000 AEST	deployed	kuberay-operator-1.7.1	           
+raycluster      	sorami-lab-stack-kuberay	1       	2026-09-28 14:19:27.835201 +1000 AEST	deployed	ray-cluster-1.7.1     	           
+vllm            	sorami-lab-stack-vllm   	1       	2026-09-28 14:19:29.134777 +1000 AEST	deployed	vllm-stack-0.1.12     	           
+# EXIT: 0

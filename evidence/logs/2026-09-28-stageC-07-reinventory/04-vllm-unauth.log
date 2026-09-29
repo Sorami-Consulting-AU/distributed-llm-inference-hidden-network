@@ -1,0 +1,4 @@
+--- unauth /v1/models ---
+GET /v1/models -> 200
+--- unauth /v1/completions ---
+POST /v1/completions -> 200

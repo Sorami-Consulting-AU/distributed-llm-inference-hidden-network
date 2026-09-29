@@ -1,0 +1,8 @@
+# UTC 2026-09-28T06:27:16Z
+# CMD: X sh -c 'id; grep CapBnd /proc/self/status; ls /var/run/secrets/kubernetes.io 2>&1 || echo NO_SA_TOKEN'
+
+uid=1000 gid=1000 groups=1000
+CapBnd:	0000000000000000
+ls: /var/run/secrets/kubernetes.io: No such file or directory
+NO_SA_TOKEN
+# EXIT: 0

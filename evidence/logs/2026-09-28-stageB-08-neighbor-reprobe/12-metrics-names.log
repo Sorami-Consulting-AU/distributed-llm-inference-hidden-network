@@ -1,0 +1,71 @@
+# UTC 2026-09-28T06:27:23Z
+# CMD: X sh -c "curl -s --max-time 15 http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000/metrics | grep '^# HELP' | wc -l; curl -s --max-time 15 http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000/metrics | grep '^# HELP'"
+
+66
+# HELP python_gc_objects_collected_total Objects collected during gc
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# HELP python_gc_collections_total Number of times this generation was collected
+# HELP python_info Python platform information
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# HELP process_open_fds Number of open file descriptors.
+# HELP process_max_fds Maximum number of open file descriptors.
+# HELP vllm:num_requests_running Number of requests in model execution batches.
+# HELP vllm:num_requests_waiting Number of requests waiting to be processed.
+# HELP vllm:kv_cache_usage_perc KV-cache usage. 1 means 100 percent usage.
+# HELP vllm:prefix_cache_queries_total Prefix cache queries, in terms of number of queried tokens.
+# HELP vllm:prefix_cache_queries_created Prefix cache queries, in terms of number of queried tokens.
+# HELP vllm:prefix_cache_hits_total Prefix cache hits, in terms of number of cached tokens.
+# HELP vllm:prefix_cache_hits_created Prefix cache hits, in terms of number of cached tokens.
+# HELP vllm:num_preemptions_total Cumulative number of preemption from the engine.
+# HELP vllm:num_preemptions_created Cumulative number of preemption from the engine.
+# HELP vllm:prompt_tokens_total Number of prefill tokens processed.
+# HELP vllm:prompt_tokens_created Number of prefill tokens processed.
+# HELP vllm:generation_tokens_total Number of generation tokens processed.
+# HELP vllm:generation_tokens_created Number of generation tokens processed.
+# HELP vllm:request_success_total Count of successfully processed requests.
+# HELP vllm:request_success_created Count of successfully processed requests.
+# HELP vllm:request_prompt_tokens Number of prefill tokens processed.
+# HELP vllm:request_prompt_tokens_created Number of prefill tokens processed.
+# HELP vllm:request_generation_tokens Number of generation tokens processed.
+# HELP vllm:request_generation_tokens_created Number of generation tokens processed.
+# HELP vllm:iteration_tokens_total Histogram of number of tokens per engine_step.
+# HELP vllm:iteration_tokens_total_created Histogram of number of tokens per engine_step.
+# HELP vllm:request_max_num_generation_tokens Histogram of maximum number of requested generation tokens.
+# HELP vllm:request_max_num_generation_tokens_created Histogram of maximum number of requested generation tokens.
+# HELP vllm:request_params_n Histogram of the n request parameter.
+# HELP vllm:request_params_n_created Histogram of the n request parameter.
+# HELP vllm:request_params_max_tokens Histogram of the max_tokens request parameter.
+# HELP vllm:request_params_max_tokens_created Histogram of the max_tokens request parameter.
+# HELP vllm:time_to_first_token_seconds Histogram of time to first token in seconds.
+# HELP vllm:time_to_first_token_seconds_created Histogram of time to first token in seconds.
+# HELP vllm:time_per_output_token_seconds Histogram of time per output token in seconds.DEPRECATED: Use vllm:inter_token_latency_seconds instead.
+# HELP vllm:time_per_output_token_seconds_created Histogram of time per output token in seconds.DEPRECATED: Use vllm:inter_token_latency_seconds instead.
+# HELP vllm:inter_token_latency_seconds Histogram of inter-token latency in seconds.
+# HELP vllm:inter_token_latency_seconds_created Histogram of inter-token latency in seconds.
+# HELP vllm:request_time_per_output_token_seconds Histogram of time_per_output_token_seconds per request.
+# HELP vllm:request_time_per_output_token_seconds_created Histogram of time_per_output_token_seconds per request.
+# HELP vllm:e2e_request_latency_seconds Histogram of e2e request latency in seconds.
+# HELP vllm:e2e_request_latency_seconds_created Histogram of e2e request latency in seconds.
+# HELP vllm:request_queue_time_seconds Histogram of time spent in WAITING phase for request.
+# HELP vllm:request_queue_time_seconds_created Histogram of time spent in WAITING phase for request.
+# HELP vllm:request_inference_time_seconds Histogram of time spent in RUNNING phase for request.
+# HELP vllm:request_inference_time_seconds_created Histogram of time spent in RUNNING phase for request.
+# HELP vllm:request_prefill_time_seconds Histogram of time spent in PREFILL phase for request.
+# HELP vllm:request_prefill_time_seconds_created Histogram of time spent in PREFILL phase for request.
+# HELP vllm:request_decode_time_seconds Histogram of time spent in DECODE phase for request.
+# HELP vllm:request_decode_time_seconds_created Histogram of time spent in DECODE phase for request.
+# HELP vllm:cache_config_info Information of the LLMEngine CacheConfig
+# HELP http_requests_total Total number of requests by method, status and handler.
+# HELP http_requests_created Total number of requests by method, status and handler.
+# HELP http_request_size_bytes Content length of incoming requests by handler. Only value of header is respected. Otherwise ignored. No percentile calculated. 
+# HELP http_request_size_bytes_created Content length of incoming requests by handler. Only value of header is respected. Otherwise ignored. No percentile calculated. 
+# HELP http_response_size_bytes Content length of outgoing responses by handler. Only value of header is respected. Otherwise ignored. No percentile calculated. 
+# HELP http_response_size_bytes_created Content length of outgoing responses by handler. Only value of header is respected. Otherwise ignored. No percentile calculated. 
+# HELP http_request_duration_highr_seconds Latency with many buckets but no API specific labels. Made for more accurate percentile calculations. 
+# HELP http_request_duration_highr_seconds_created Latency with many buckets but no API specific labels. Made for more accurate percentile calculations. 
+# HELP http_request_duration_seconds Latency with only few buckets by handler. Made to be only used if aggregation by handler is important. 
+# HELP http_request_duration_seconds_created Latency with only few buckets by handler. Made to be only used if aggregation by handler is important. 
+# EXIT: 0

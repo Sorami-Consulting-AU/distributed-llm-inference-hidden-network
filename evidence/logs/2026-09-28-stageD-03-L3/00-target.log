@@ -1,0 +1,8 @@
+# UTC 2026-09-28T10:00:58Z
+# CMD: echo label='L3 NetworkPolicy + engine api-key auth' svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-rb8mq worker=sorami-lab-vllm-ray-gpu-worker-worker-ngwmf; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-ray-head-rb8mq sorami-lab-vllm-ray-gpu-worker-worker-ngwmf -o wide
+
+label=L3 NetworkPolicy + engine api-key auth svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-rb8mq worker=sorami-lab-vllm-ray-gpu-worker-worker-ngwmf
+NAME                                            READY   STATUS    RESTARTS   AGE     IP             NODE                                             NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-head-rb8mq                1/1     Running   0          5m10s   10.99.31.216   ip-10-99-31-72.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-gpu-worker-worker-ngwmf   1/1     Running   0          5m11s   10.99.3.49     ip-10-99-9-134.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

@@ -1,0 +1,30 @@
+# UTC 2026-09-28T13:08:41Z
+# CMD: helm --kube-context sorami-lab install cilium cilium/cilium --version 1.20.2 -n kube-system -f manifests/stageD-L2b-cilium-values.yaml --set encryption.enabled=false --set cni.uninstall=true --wait --timeout 10m; kubectl --context sorami-lab -n kube-system get cm cilium-config -o jsonpath='{.data.enable-wireguard}|{.data.cni-uninstall}'; echo; for p in $(kubectl --context sorami-lab -n kube-system get pods -l k8s-app=cilium -o name); do echo $p; kubectl --context sorami-lab -n kube-system exec $p -c cilium-agent -- cilium-dbg status | grep -E 'Encryption|CNI Chaining'; done
+
+NAME: cilium
+LAST DEPLOYED: Mon Sep 28 23:08:42 2026
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+You have successfully installed Cilium.
+
+Your release version is 1.20.2.
+
+For any further help, visit https://docs.cilium.io/en/v1.20/gettinghelp
+|true
+pod/cilium-7j22m
+CNI Chaining:            aws-cni
+Encryption:              Disabled   
+pod/cilium-9zlz7
+CNI Chaining:            aws-cni
+Encryption:              Disabled   
+pod/cilium-b52vs
+CNI Chaining:            aws-cni
+Encryption:              Disabled   
+pod/cilium-hmm2h
+CNI Chaining:            aws-cni
+Encryption:              Disabled   
+# EXIT: 0

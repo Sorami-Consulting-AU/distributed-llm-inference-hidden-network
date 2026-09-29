@@ -1,0 +1,12 @@
+# UTC 2026-09-28T06:04:37Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-stack-vllm logs sorami-lab-vllm-engine-c78b69f68-86xz8 | grep -E 'KV cache|Maximum concurrency|max_model_len|Loading weights took|Model loading took|non-default args'
+
+[1;36m(APIServer pid=1)[0;0m INFO 09-27 22:26:00 [utils.py:233] non-default args: {'model': 'Qwen/Qwen2.5-7B-Instruct', 'max_model_len': 8192}
+[1;36m(EngineCore_DP0 pid=82)[0;0m INFO 09-27 22:32:19 [default_loader.py:267] Loading weights took 129.95 seconds
+[1;36m(EngineCore_DP0 pid=82)[0;0m INFO 09-27 22:32:19 [gpu_model_runner.py:2653] Model loading took 14.2488 GiB and 356.854126 seconds
+[1;36m(EngineCore_DP0 pid=82)[0;0m INFO 09-27 22:32:53 [gpu_worker.py:298] Available KV cache memory: 5.01 GiB
+[1;36m(EngineCore_DP0 pid=82)[0;0m INFO 09-27 22:32:53 [kv_cache_utils.py:1087] GPU KV cache size: 93,840 tokens
+[1;36m(EngineCore_DP0 pid=82)[0;0m INFO 09-27 22:32:53 [kv_cache_utils.py:1091] Maximum concurrency for 8,192 tokens per request: 11.46x
+[1;36m(APIServer pid=1)[0;0m INFO 09-27 22:35:17 [loggers.py:127] Engine 000: Avg prompt throughput: 3.6 tokens/s, Avg generation throughput: 0.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+[1;36m(APIServer pid=1)[0;0m INFO 09-27 22:35:27 [loggers.py:127] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+# EXIT: 0

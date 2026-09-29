@@ -1,0 +1,8 @@
+# UTC 2026-09-28T04:29:19Z
+# CMD: kubectl --context sorami-lab apply -f test-harness/manifests/scanner-jobs.yaml
+
+job.batch/scan-trivy created
+job.batch/scan-kubescape created
+job.batch/scan-kubelinter created
+job.batch/scan-checkov created
+# EXIT: 0

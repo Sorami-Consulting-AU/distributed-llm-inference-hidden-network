@@ -1,0 +1,22 @@
+Copyright 2026 Sorami Consulting Pty Ltd (ACN 702 116 452)
+
+The report copy, data, logs, evidence files, harness code and figures in this
+repository are licensed under the Creative Commons Attribution 4.0
+International licence (CC BY 4.0).
+
+You may share and adapt this material for any purpose, including commercially,
+as long as you give appropriate credit, link to the licence, and say if you
+made changes.
+
+Licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Summary:      https://creativecommons.org/licenses/by/4.0/
+
+Attribute as:
+  Sorami (2026), The Hidden Network: measuring the unauthenticated data plane
+  of distributed LLM inference on Kubernetes,
+  https://sorami.com.au/research/distributed-llm-inference-hidden-network/
+
+Product and project names belong to their respective owners. Rendered vendor
+chart defaults under test-harness/manifests/rendered-defaults/ are output of
+the upstream charts and remain under their original licences. Short excerpts
+of vendor output quoted in logs/ are included for citation.

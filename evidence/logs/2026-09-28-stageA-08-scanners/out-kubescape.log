@@ -1,0 +1,41 @@
+# UTC 2026-09-28T04:38:21Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-scanners logs job/scan-kubescape
+
+{"level":"info","ts":"2026-09-28T04:38:08Z","msg":"Kubescape scanner initializing..."}
+{"level":"warn","ts":"2026-09-28T04:38:10Z","msg":"current version 'v3.0.40' is not updated to the latest release: 'v4.0.14'"}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Initialized scanner"}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Loading policies..."}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Loaded policies"}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Loading exceptions..."}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Loaded exceptions"}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Loading account configurations..."}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Loaded account configurations"}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Accessing local objects..."}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Done accessing local objects"}
+{"level":"info","ts":"2026-09-28T04:38:13Z","msg":"Scanning File"}
+{"level":"info","ts":"2026-09-28T04:38:18Z","msg":"Done scanning File"}
+{"level":"info","ts":"2026-09-28T04:38:18Z","msg":"Done aggregating results"}
+
+
+
+Security posture overview for repo: '/tmp/w/all-defaults.yaml'
+
+Workload
+╭─────────────────────┬───────────┬─────────────────────────────────────────────────────────────╮
+│ Control name        │ Resources │ View details                                                │
+├─────────────────────┼───────────┼─────────────────────────────────────────────────────────────┤
+│ Non-root containers │     2     │ $ kubescape scan control C-0013 /tmp/w/all-defaults.yaml -v │
+╰─────────────────────┴───────────┴─────────────────────────────────────────────────────────────╯
+
+
+Highest-stake workloads
+───────────────────────
+
+High-stakes workloads are defined as those which Kubescape estimates would have the highest impact if they were to be exploited.
+
+1. namespace: sorami-lab-stack-vllm, name: vllm-deployment-router, kind: Deployment
+   $ kubescape scan workload Deployment/vllm-deployment-router --namespace sorami-lab-stack-vllm --file-path=/tmp/w/all-defaults.yaml
+2. namespace: sorami-lab-stack-kuberay, name: kuberay-operator, kind: Deployment
+   $ kubescape scan workload Deployment/kuberay-operator --namespace sorami-lab-stack-kuberay --file-path=/tmp/w/all-defaults.yaml
+
+# EXIT: 0

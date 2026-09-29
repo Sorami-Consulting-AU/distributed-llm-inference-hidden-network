@@ -1,0 +1,66 @@
+# Stage D L1: default-deny ingress in the engine namespace plus the minimum
+# allows the distributed topology needs. Goal: the Ray control plane (GCS 6379,
+# raylet 10002 to 10006) and the vLLM API (8000) must stop being reachable from
+# unrelated namespaces (the neighbor), while head<->worker pipeline traffic and
+# the intended caller path keep working. Enforced by the VPC CNI network policy
+# agent (aws-eks-nodeagent, --enable-network-policy=true).
+#
+# One variable at a time: this layer adds ONLY NetworkPolicy. No mTLS, no TLS,
+# no api-key yet. Placement and engine config are unchanged from L0.
+---
+# Default deny all ingress to every pod in the engine namespace. Egress is left
+# open so the engine can still pull the model and resolve DNS; L1 is about who
+# can reach the engine, which is the Stage C cross-namespace exposure.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sorami-lab-default-deny-ingress
+  namespace: sorami-lab-stack-vllm
+  labels: { research: sorami-lab, stage: d-l1 }
+spec:
+  podSelector: {}
+  policyTypes: ["Ingress"]
+  # No ingress rules = deny all ingress. Explicit allows follow below.
+---
+# Allow the two engine pods to talk to each other on every port. Ray uses many
+# ephemeral RPC ports beyond the declared ones (object manager, worker agents,
+# NCCL), so restricting to a port list would break the pipeline; scope is held
+# tight by only allowing peers that carry the engine app label.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sorami-lab-allow-intra-topology
+  namespace: sorami-lab-stack-vllm
+  labels: { research: sorami-lab, stage: d-l1 }
+spec:
+  podSelector:
+    matchLabels: { app: sorami-lab-vllm-ray }
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: { app: sorami-lab-vllm-ray }
+---
+# Allow the intended caller path to the vLLM OpenAI API on 8000 only: the router
+# in this namespace and the benchmark client in the neighbor namespace. This is
+# the legitimate inference path Stage D keeps measuring. It deliberately does
+# NOT open 6379 or 10002 to the neighbor, so the Stage C control-plane probes
+# must now fail while the benchmark still succeeds.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sorami-lab-allow-vllm-api
+  namespace: sorami-lab-stack-vllm
+  labels: { research: sorami-lab, stage: d-l1 }
+spec:
+  podSelector:
+    matchLabels: { app: sorami-lab-vllm-ray }
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: { kubernetes.io/metadata.name: sorami-lab-neighbor }
+        - namespaceSelector:
+            matchLabels: { kubernetes.io/metadata.name: sorami-lab-stack-vllm }
+      ports:
+        - { protocol: TCP, port: 8000 }

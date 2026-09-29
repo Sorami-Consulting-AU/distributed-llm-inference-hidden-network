@@ -1,0 +1,46 @@
+# UTC 2026-09-28T04:23:27Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-neighbor exec sorami-lab-neighbor -- nmap -sT -Pn -p- -T4 --open -n 10.99.32.82 10.99.7.224 10.99.39.62 10.99.38.225 
+
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-09-28 04:23 UTC
+Nmap scan report for 10.99.32.82
+Host is up (0.00095s latency).
+Not shown: 65533 closed tcp ports (conn-refused)
+PORT     STATE SERVICE
+8080/tcp open  http-proxy
+8082/tcp open  blackice-alerts
+
+Nmap scan report for 10.99.7.224
+Host is up (0.00032s latency).
+Not shown: 65524 closed tcp ports (conn-refused)
+PORT      STATE SERVICE
+6379/tcp  open  redis
+8080/tcp  open  http-proxy
+8265/tcp  open  unknown
+10001/tcp open  scp-config
+36087/tcp open  unknown
+36349/tcp open  unknown
+44217/tcp open  unknown
+44227/tcp open  unknown
+52365/tcp open  unknown
+57914/tcp open  unknown
+62226/tcp open  unknown
+
+Nmap scan report for 10.99.39.62
+Host is up (0.0014s latency).
+Not shown: 65529 closed tcp ports (conn-refused)
+PORT      STATE SERVICE
+8080/tcp  open  http-proxy
+36027/tcp open  unknown
+36999/tcp open  unknown
+45109/tcp open  unknown
+52365/tcp open  unknown
+57992/tcp open  unknown
+
+Nmap scan report for 10.99.38.225
+Host is up (0.0014s latency).
+Not shown: 65534 closed tcp ports (conn-refused)
+PORT     STATE SERVICE
+8000/tcp open  http-alt
+
+Nmap done: 4 IP addresses (4 hosts up) scanned in 7.59 seconds
+# EXIT: 0

@@ -1,0 +1,283 @@
+# Stage C distributed topology: disaggregated prefill/decode with a plaintext
+# KV-cache transfer side channel between two vLLM workers on two GPU nodes.
+#
+# Model is Qwen2.5-1.5B-Instruct (NOT the 7B used in Stage B) because one GPU
+# node is a g4dn T4 with 16 GB and the two GPU nodes are heterogeneous (T4 16GB
+# and A10G 24GB). dtype=half because the T4 has no native bf16. Absolute
+# throughput is therefore NOT comparable to Stage B; only the L0..L3 deltas
+# within Stage C/D are meaningful, and worker placement is pinned identically
+# across every layer so the comparison is fair.
+#
+# Transport (vLLM v0.11.0 P2pNcclConnector): each worker opens a ZMQ router
+# socket at pod-ip:kv_port for the KV side channel and pings the proxy over ZMQ
+# at proxy_ip:proxy_port to advertise itself. KV tensors move over NCCL/ZMQ with
+# no auth and no TLS: that side channel is the "hidden network" Stage C measures.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sorami-lab-disagg-proxy-src
+  namespace: sorami-lab-stack-vllm
+  labels: { research: sorami-lab }
+data:
+  # Disaggregated router. It runs a ZMQ ROUTER so both workers' ping threads have
+  # a live proxy_address to register against (the connector disables its ping
+  # thread if proxy is empty, so a reachable proxy keeps the P2P path realistic).
+  # HTTP path: prefill worker gets the prompt with max_tokens=1 to build and ship
+  # KV, then the decode worker streams the full generation. Stdlib + pyzmq only.
+  proxy.py: |
+    import json, os, threading, urllib.request, http.server, socketserver
+    import zmq
+    PREFILL = os.environ["PREFILL"]
+    DECODE = os.environ["DECODE"]
+    PROXY_PORT = int(os.environ.get("PROXY_PORT", "30001"))
+
+    def zmq_registrar():
+        # Absorb worker registration pings so the connector's ping thread has a
+        # peer. Payloads are msgpack tuples (http_addr, zmq_addr, ...); we only
+        # need to drain them, routing here is static by Service DNS.
+        ctx = zmq.Context()
+        sock = ctx.socket(zmq.ROUTER)
+        sock.bind(f"tcp://0.0.0.0:{PROXY_PORT}")
+        while True:
+            try:
+                sock.recv_multipart()
+            except Exception:
+                pass
+
+    def post(base, body):
+        req = urllib.request.Request(base + "/v1/completions", body,
+                                     {"Content-Type": "application/json"})
+        return urllib.request.urlopen(req, timeout=300)
+
+    class H(http.server.BaseHTTPRequestHandler):
+        protocol_version = "HTTP/1.1"
+        def log_message(self, *a): pass
+        def do_POST(self):
+            n = int(self.headers.get("Content-Length", 0))
+            raw = self.rfile.read(n)
+            try:
+                req = json.loads(raw)
+            except Exception:
+                self.send_response(400); self.end_headers(); return
+            pf = dict(req); pf["max_tokens"] = 1; pf["stream"] = False
+            try:
+                post(PREFILL, json.dumps(pf).encode()).read()
+            except Exception as e:
+                body = json.dumps({"error": "prefill", "detail": str(e)[:200]}).encode()
+                self.send_response(502); self.send_header("Content-Length", str(len(body)))
+                self.end_headers(); self.wfile.write(body); return
+            try:
+                r = post(DECODE, raw)
+            except Exception as e:
+                body = json.dumps({"error": "decode", "detail": str(e)[:200]}).encode()
+                self.send_response(502); self.send_header("Content-Length", str(len(body)))
+                self.end_headers(); self.wfile.write(body); return
+            self.send_response(200)
+            self.send_header("Content-Type", "text/event-stream")
+            self.send_header("Transfer-Encoding", "chunked")
+            self.end_headers()
+            while True:
+                chunk = r.read(65536)
+                if not chunk: break
+                self.wfile.write(("%X\r\n" % len(chunk)).encode() + chunk + b"\r\n")
+            self.wfile.write(b"0\r\n\r\n")
+        def do_GET(self):
+            try:
+                r = urllib.request.urlopen(DECODE + self.path, timeout=15)
+                data = r.read()
+                self.send_response(200); self.send_header("Content-Length", str(len(data)))
+                self.end_headers(); self.wfile.write(data)
+            except Exception:
+                self.send_response(502); self.send_header("Content-Length", "0"); self.end_headers()
+
+    threading.Thread(target=zmq_registrar, daemon=True).start()
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
+    with socketserver.ThreadingTCPServer(("0.0.0.0", 8000), H) as s:
+        s.serve_forever()
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sorami-lab-vllm-prefill
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-prefill, role: kv-producer, research: sorami-lab }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: sorami-lab-vllm-prefill } }
+  template:
+    metadata:
+      labels: { app: sorami-lab-vllm-prefill, role: kv-producer, research: sorami-lab }
+    spec:
+      # Producer on the A10G 24GB node. Placement is fixed by hostname and kept
+      # identical across every Stage D layer so L0..L3 deltas are attributable.
+      nodeSelector:
+        kubernetes.io/hostname: ip-10-99-31-72.ap-southeast-2.compute.internal
+      tolerations:
+        - { key: sorami-lab/gpu, operator: Exists, effect: NoSchedule }
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:v0.11.0
+          args:
+            - --model=Qwen/Qwen2.5-1.5B-Instruct
+            - --dtype=half
+            - --max-model-len=8192
+            - --gpu-memory-utilization=0.4
+            - --port=8000
+            - --enforce-eager
+            - --kv-transfer-config
+            # kv_producer, rank 0. kv_port 20001 is the ZMQ KV side channel bound
+            # on the pod IP. http_port must equal the OpenAI port. proxy_* points
+            # the ping thread at our router so the P2P registration path is live.
+            - '{"kv_connector":"P2pNcclConnector","kv_role":"kv_producer","kv_rank":0,"kv_parallel_size":2,"kv_port":20001,"kv_buffer_size":1e8,"kv_connector_extra_config":{"http_port":"8000","proxy_ip":"sorami-lab-vllm-proxy.sorami-lab-stack-vllm.svc.cluster.local","proxy_port":"30001","send_type":"PUT_ASYNC"}}'
+          env:
+            - { name: VLLM_HOST_IP, valueFrom: { fieldRef: { fieldPath: status.podIP } } }
+          ports:
+            - { name: http, containerPort: 8000 }
+            - { name: kv, containerPort: 20001 }
+          resources:
+            limits: { nvidia.com/gpu: 1 }
+            requests: { cpu: "2", memory: 8Gi }
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 120
+          volumeMounts:
+            - { name: cache, mountPath: /root/.cache/huggingface }
+            - { name: shm, mountPath: /dev/shm }
+      volumes:
+        - { name: cache, emptyDir: { sizeLimit: 30Gi } }
+        # KV/NCCL buffers need more than the 64 MB default /dev/shm.
+        - { name: shm, emptyDir: { medium: Memory, sizeLimit: 3Gi } }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sorami-lab-vllm-prefill
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-prefill, research: sorami-lab }
+spec:
+  # Headless so a stable per-pod DNS exists; the KV channel is pod-ip:20001.
+  clusterIP: None
+  selector: { app: sorami-lab-vllm-prefill }
+  ports:
+    - { name: http, port: 8000, targetPort: 8000 }
+    - { name: kv, port: 20001, targetPort: 20001 }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sorami-lab-vllm-decode
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-decode, role: kv-consumer, research: sorami-lab }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: sorami-lab-vllm-decode } }
+  template:
+    metadata:
+      labels: { app: sorami-lab-vllm-decode, role: kv-consumer, research: sorami-lab }
+    spec:
+      # Consumer on the T4 16GB node so the KV transfer crosses the pod network.
+      nodeSelector:
+        kubernetes.io/hostname: ip-10-99-9-134.ap-southeast-2.compute.internal
+      tolerations:
+        - { key: sorami-lab/gpu, operator: Exists, effect: NoSchedule }
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:v0.11.0
+          args:
+            - --model=Qwen/Qwen2.5-1.5B-Instruct
+            - --dtype=half
+            - --max-model-len=8192
+            - --gpu-memory-utilization=0.4
+            - --port=8000
+            - --enforce-eager
+            - --kv-transfer-config
+            - '{"kv_connector":"P2pNcclConnector","kv_role":"kv_consumer","kv_rank":1,"kv_parallel_size":2,"kv_port":20001,"kv_buffer_size":1e8,"kv_connector_extra_config":{"http_port":"8000","proxy_ip":"sorami-lab-vllm-proxy.sorami-lab-stack-vllm.svc.cluster.local","proxy_port":"30001","send_type":"PUT_ASYNC"}}'
+          env:
+            - { name: VLLM_HOST_IP, valueFrom: { fieldRef: { fieldPath: status.podIP } } }
+          ports:
+            - { name: http, containerPort: 8000 }
+            - { name: kv, containerPort: 20001 }
+          resources:
+            limits: { nvidia.com/gpu: 1 }
+            requests: { cpu: "2", memory: 8Gi }
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 120
+          volumeMounts:
+            - { name: cache, mountPath: /root/.cache/huggingface }
+            - { name: shm, mountPath: /dev/shm }
+      volumes:
+        - { name: cache, emptyDir: { sizeLimit: 30Gi } }
+        - { name: shm, emptyDir: { medium: Memory, sizeLimit: 3Gi } }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sorami-lab-vllm-decode
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-decode, research: sorami-lab }
+spec:
+  clusterIP: None
+  selector: { app: sorami-lab-vllm-decode }
+  ports:
+    - { name: http, port: 8000, targetPort: 8000 }
+    - { name: kv, port: 20001, targetPort: 20001 }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sorami-lab-vllm-proxy
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-proxy, research: sorami-lab }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: sorami-lab-vllm-proxy } }
+  template:
+    metadata:
+      labels: { app: sorami-lab-vllm-proxy, research: sorami-lab }
+    spec:
+      automountServiceAccountToken: false
+      # pyzmq is needed for the registration ROUTER; install at start (no GPU,
+      # small image) rather than baking a custom image for a research proxy.
+      initContainers:
+        - name: pip
+          image: python:3.12-slim
+          command: ["sh","-c","pip install --target=/pylib pyzmq==26.2.0 >/dev/null"]
+          volumeMounts: [{ name: pylib, mountPath: /pylib }]
+      containers:
+        - name: proxy
+          image: python:3.12-slim
+          command: ["sh","-c","PYTHONPATH=/pylib python /src/proxy.py"]
+          env:
+            - { name: PREFILL, value: "http://sorami-lab-vllm-prefill.sorami-lab-stack-vllm.svc.cluster.local:8000" }
+            - { name: DECODE, value: "http://sorami-lab-vllm-decode.sorami-lab-stack-vllm.svc.cluster.local:8000" }
+            - { name: PROXY_PORT, value: "30001" }
+          ports:
+            - { name: http, containerPort: 8000 }
+            - { name: reg, containerPort: 30001 }
+          resources:
+            requests: { cpu: 200m, memory: 128Mi }
+            limits: { cpu: "1", memory: 512Mi }
+          volumeMounts:
+            - { name: src, mountPath: /src }
+            - { name: pylib, mountPath: /pylib }
+      volumes:
+        - { name: src, configMap: { name: sorami-lab-disagg-proxy-src } }
+        - { name: pylib, emptyDir: {} }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sorami-lab-vllm-proxy
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-proxy, research: sorami-lab }
+spec:
+  selector: { app: sorami-lab-vllm-proxy }
+  ports:
+    - { name: http, port: 8000, targetPort: 8000 }
+    - { name: reg, port: 30001, targetPort: 30001 }

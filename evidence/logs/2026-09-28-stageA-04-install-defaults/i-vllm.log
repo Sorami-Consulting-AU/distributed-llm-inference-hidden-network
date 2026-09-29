@@ -1,0 +1,12 @@
+# UTC 2026-09-28T04:19:28Z
+# CMD: helm --kube-context sorami-lab upgrade --install vllm vllm/vllm-stack --version 0.1.12 -n sorami-lab-stack-vllm --labels research=sorami-lab
+
+Release "vllm" does not exist. Installing it now.
+NAME: vllm
+LAST DEPLOYED: Mon Sep 28 14:19:29 2026
+NAMESPACE: sorami-lab-stack-vllm
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+# EXIT: 0

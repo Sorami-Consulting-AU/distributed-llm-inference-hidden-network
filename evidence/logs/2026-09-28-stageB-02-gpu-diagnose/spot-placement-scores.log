@@ -1,0 +1,8 @@
+g6.xlarge apse2-az3:1 apse2-az2:1 apse2-az1:1 
+g6.2xlarge apse2-az1:1 apse2-az3:1 apse2-az2:1 
+g5.xlarge apse2-az1:1 apse2-az2:1 
+g5.2xlarge apse2-az1:1 apse2-az2:1 
+g4dn.xlarge apse2-az3:1 apse2-az2:1 apse2-az1:1 
+g4dn.2xlarge apse2-az1:1 apse2-az3:1 apse2-az2:1 
+g6e.xlarge 
+g6.4xlarge apse2-az1:1 apse2-az2:1 apse2-az3:1 

@@ -1,0 +1,20 @@
+# UTC 2026-09-28T13:28:54Z
+# CMD: echo 'note: tf plan for gpu_desired=0 gpu_ondemand_desired=0 at 13:23Z returned No changes; both groups were already desired 0 (tfstate mtime 13:22Z, scale-down applied outside this worker session)'; for g in sorami-lab-gpu-ondemand sorami-lab-gpu-spot; do aws eks describe-nodegroup --cluster-name sorami-lab --nodegroup-name $g --query 'nodegroup.[nodegroupName,scalingConfig.desiredSize,status]' --output text; done; aws ec2 describe-instances --filters Name=tag:eks:cluster-name,Values=sorami-lab Name=instance-state-name,Values=pending,running,stopping,shutting-down --query 'Reservations[].Instances[].[InstanceType,State.Name]' --output text; kubectl --context sorami-lab get nodes -L node.kubernetes.io/instance-type; kubectl --context sorami-lab get pods -A --no-headers | awk '{print $1, $2, $4}' | grep -v Running || true
+
+note: tf plan for gpu_desired=0 gpu_ondemand_desired=0 at 13:23Z returned No changes; both groups were already desired 0 (tfstate mtime 13:22Z, scale-down applied outside this worker session)
+sorami-lab-gpu-ondemand	0	ACTIVE
+sorami-lab-gpu-spot	0	ACTIVE
+m6a.xlarge	running
+m6a.xlarge	running
+NAME                                             STATUS   ROLES    AGE     VERSION               INSTANCE-TYPE
+ip-10-99-11-62.ap-southeast-2.compute.internal   Ready    <none>   5h41m   v1.35.8-eks-f4fc4f1   m6a.xlarge
+ip-10-99-18-6.ap-southeast-2.compute.internal    Ready    <none>   144m    v1.35.8-eks-f4fc4f1   m6a.xlarge
+kube-system aws-node-6pxrc Pending
+kube-system aws-node-9vfw2 Pending
+kube-system kube-proxy-n9ckr Pending
+kube-system kube-proxy-xjc8p Pending
+sorami-lab-neighbor ray-driver2 Completed
+sorami-lab-neighbor sorami-lab-bench-stagec-pxn9b Completed
+sorami-lab-stack-vllm sorami-lab-vllm-ray-gpu-worker-worker-9hjng Pending
+sorami-lab-stack-vllm sorami-lab-vllm-ray-head-5jd66 Pending
+# EXIT: 0

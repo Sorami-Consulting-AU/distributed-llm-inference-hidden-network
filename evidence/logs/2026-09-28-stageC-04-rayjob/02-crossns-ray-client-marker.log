@@ -1,0 +1,1 @@
+ATTEMPT_FAILED: ValueError Ray Client requires pip package `ray[client]`. If you installed the minimal Ray (e.g. `pip install ray`), please reinstall by executing `pip install ray[client]`.

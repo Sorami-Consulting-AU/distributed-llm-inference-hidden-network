@@ -1,0 +1,13 @@
+# UTC 2026-09-28T12:26:48Z
+# CMD: bash /tmp/wgproof.sh
+
+head pod -> worker pod 10.99.33.127:45555, 50 MiB repeated ASCII marker 'sorami-lab-marker'
+--- head node counters BEFORE (face: rx_bytes rx_pkts ... tx_bytes tx_pkts)
+  ens5: 19730210537 13343474    0    0    0     0          0         0 641459248 1403161    0    0    0     0       0          0
+cilium_wg0:  802568    4037    0    0    0     0          0         0   651048    3919    0    0    0     0       0          0
+head_sent_bytes 55189000
+worker_received_bytes 55189000
+--- head node counters AFTER
+  ens5: 19730310581 13344163    0    0    0     0          0         0 697520489 1409480    0    0    0     0       0          0
+cilium_wg0:  864168    4668    0    0    0     0          0         0 56438648   10173    0    0    0     0       0          0
+# EXIT: 0

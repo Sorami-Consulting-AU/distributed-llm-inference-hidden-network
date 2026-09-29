@@ -1,0 +1,8 @@
+aws_eks_node_group.gpu: Modifying... [id=sorami-lab:sorami-lab-gpu-spot]
+
+Error: updating EKS Node Group (sorami-lab:sorami-lab-gpu-spot) config: operation error EKS: UpdateNodegroupConfig, https response error StatusCode: 409, RequestID: d386c789-36a2-4d05-b464-0e1a72f3e92d, ResourceInUseException: Nodegroup cannot be updated as it is currently not in Active State
+
+  with aws_eks_node_group.gpu,
+  on eks.tf line 69, in resource "aws_eks_node_group" "gpu":
+  69: resource "aws_eks_node_group" "gpu" {
+

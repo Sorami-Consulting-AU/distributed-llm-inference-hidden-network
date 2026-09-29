@@ -1,0 +1,19 @@
+# UTC 2026-09-28T06:48:56Z
+# CMD: kubectl --context sorami-lab get nodes -L sorami-lab/pool,node.kubernetes.io/instance-type,eks.amazonaws.com/capacityType; for ng in sorami-lab-gpu-spot sorami-lab-gpu-ondemand sorami-lab-cpu-spot; do aws eks describe-nodegroup --cluster-name sorami-lab --nodegroup-name $ng --query 'nodegroup.[nodegroupName,status,capacityType,scalingConfig.desiredSize,scalingConfig.maxSize]' --output text; done; echo '# GPU instances pending/running:'; aws ec2 describe-instances --filters Name=tag:eks:nodegroup-name,Values=sorami-lab-gpu-spot,sorami-lab-gpu-ondemand Name=instance-state-name,Values=pending,running --query 'Reservations[].Instances[].[InstanceId,InstanceType,State.Name]' --output text; echo '# vllm pods:'; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pods -o wide; echo '# device plugin:'; kubectl --context sorami-lab -n sorami-lab-gpu-system get ds,pods
+
+NAME                                              STATUS   ROLES    AGE    VERSION               POOL   INSTANCE-TYPE   CAPACITYTYPE
+ip-10-99-20-246.ap-southeast-2.compute.internal   Ready    <none>   121m   v1.35.8-eks-f4fc4f1          m7i.xlarge      SPOT
+ip-10-99-39-126.ap-southeast-2.compute.internal   Ready    <none>   59m    v1.35.8-eks-f4fc4f1          m6a.xlarge      SPOT
+sorami-lab-gpu-spot	ACTIVE	SPOT	0	4
+sorami-lab-gpu-ondemand	ACTIVE	ON_DEMAND	0	1
+sorami-lab-cpu-spot	ACTIVE	SPOT	2	3
+# GPU instances pending/running:
+# vllm pods:
+NAME                                       READY   STATUS    RESTARTS       AGE    IP             NODE                                              NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-engine-c78b69f68-vsd4n   0/1     Pending   0              10m    <none>         <none>                                            <none>           <none>
+vllm-deployment-router-85ffc679b9-rz4wp    1/1     Running   1 (117m ago)   120m   10.99.31.229   ip-10-99-20-246.ap-southeast-2.compute.internal   <none>           <none>
+# device plugin:
+NAME                                                          DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                                       AGE
+daemonset.apps/nvdp-nvidia-device-plugin                      0         0         0       0            0           sorami-lab/pool=gpu                               90m
+daemonset.apps/nvdp-nvidia-device-plugin-mps-control-daemon   0         0         0       0            0           nvidia.com/mps.capable=true,sorami-lab/pool=gpu   90m
+# EXIT: 0

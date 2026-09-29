@@ -1,0 +1,5 @@
+# UTC 2026-09-28T12:14:13Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-neighbor wait --for=condition=complete job/sorami-lab-bench-stagec --timeout=3600s
+
+job.batch/sorami-lab-bench-stagec condition met
+# EXIT: 0

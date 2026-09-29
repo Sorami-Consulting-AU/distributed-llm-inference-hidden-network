@@ -1,0 +1,31 @@
+# UTC 2026-09-28T06:04:18Z
+# CMD: aws eks describe-nodegroup --cluster-name sorami-lab --nodegroup-name sorami-lab-gpu-ondemand --query 'nodegroup.{s:status,sc:scalingConfig,ct:capacityType,it:instanceTypes,labels:labels,taints:taints,ami:amiType,disk:diskSize}' --output json
+
+{
+    "s": "ACTIVE",
+    "sc": {
+        "minSize": 0,
+        "maxSize": 1,
+        "desiredSize": 0
+    },
+    "ct": "ON_DEMAND",
+    "it": [
+        "g6.xlarge",
+        "g5.xlarge",
+        "g4dn.xlarge"
+    ],
+    "labels": {
+        "sorami-lab/pool": "gpu",
+        "sorami-lab/capacity": "ondemand"
+    },
+    "taints": [
+        {
+            "key": "sorami-lab/gpu",
+            "value": "true",
+            "effect": "NO_SCHEDULE"
+        }
+    ],
+    "ami": "AL2023_x86_64_NVIDIA",
+    "disk": 150
+}
+# EXIT: 0

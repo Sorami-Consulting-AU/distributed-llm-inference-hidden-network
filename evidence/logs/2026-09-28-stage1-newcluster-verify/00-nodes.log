@@ -1,0 +1,7 @@
+# UTC 2026-09-28T04:14:53Z
+# CMD: kubectl get nodes -o wide -L eks.amazonaws.com/capacityType,node.kubernetes.io/instance-type,topology.kubernetes.io/zone
+
+NAME                                              STATUS   ROLES    AGE   VERSION               INTERNAL-IP    EXTERNAL-IP     OS-IMAGE                        KERNEL-VERSION                     CONTAINER-RUNTIME            CAPACITYTYPE   INSTANCE-TYPE   ZONE
+ip-10-99-10-192.ap-southeast-2.compute.internal   Ready    <none>   87s   v1.35.8-eks-f4fc4f1   10.99.10.192   <public-ip-redacted>     Amazon Linux 2023.12.20260918   6.12.103-129.197.amzn2023.x86_64   containerd://2.2.7+unknown   SPOT           m5.xlarge       ap-southeast-2a
+ip-10-99-34-133.ap-southeast-2.compute.internal   Ready    <none>   87s   v1.35.8-eks-f4fc4f1   10.99.34.133   <public-ip-redacted>   Amazon Linux 2023.12.20260918   6.12.103-129.197.amzn2023.x86_64   containerd://2.2.7+unknown   SPOT           m5.xlarge       ap-southeast-2c
+# EXIT: 0

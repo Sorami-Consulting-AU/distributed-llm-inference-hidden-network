@@ -1,0 +1,9 @@
+# UTC 2026-09-28T11:54:28Z
+# CMD: aws eks describe-addon-configuration --addon-name vpc-cni --addon-version v1.22.4-eksbuild.3 --query configurationSchema --output text > /tmp/vpccni-schema.json; echo schema_bytes=$(wc -c < /tmp/vpccni-schema.json); echo 'grep -ioE (wireguard|ipsec|encrypt[a-z_]*) in the addon schema:'; grep -ioE 'wireguard|ipsec|encrypt[a-z_]*' /tmp/vpccni-schema.json | sort | uniq -c; echo '(empty above = no encryption knob in the VPC CNI addon schema)'; echo; echo 'aws-node container env names:'; kubectl --context sorami-lab -n kube-system get ds aws-node -o jsonpath='{range .spec.template.spec.containers[*].env[*]}{.name}{"\n"}{end}' | sort | tr '\n' ' '
+
+schema_bytes= 5860
+grep -ioE (wireguard|ipsec|encrypt[a-z_]*) in the addon schema:
+(empty above = no encryption knob in the VPC CNI addon schema)
+
+aws-node container env names:
+ADDITIONAL_ENI_TAGS ANNOTATE_POD_IP AWS_VPC_CNI_NODE_PORT_SUPPORT AWS_VPC_ENI_MTU AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG AWS_VPC_K8S_CNI_EXTERNALSNAT AWS_VPC_K8S_CNI_LOGLEVEL AWS_VPC_K8S_CNI_LOG_FILE AWS_VPC_K8S_CNI_RANDOMIZESNAT AWS_VPC_K8S_CNI_VETHPREFIX AWS_VPC_K8S_PLUGIN_LOG_FILE AWS_VPC_K8S_PLUGIN_LOG_LEVEL CLUSTER_ENDPOINT CLUSTER_NAME DISABLE_INTROSPECTION DISABLE_METRICS DISABLE_NETWORK_RESOURCE_PROVISIONING ENABLE_IMDS_ONLY_MODE ENABLE_IPv4 ENABLE_IPv6 ENABLE_MULTI_NIC ENABLE_POD_ENI ENABLE_PREFIX_DELEGATION ENABLE_SUBNET_DISCOVERY MY_NODE_NAME MY_NODE_NAME MY_POD_NAME NETWORK_POLICY_ENFORCING_MODE VPC_CNI_VERSION VPC_ID WARM_ENI_TARGET WARM_PREFIX_TARGET # EXIT: 0

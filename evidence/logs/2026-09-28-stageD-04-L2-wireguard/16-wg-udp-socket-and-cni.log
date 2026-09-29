@@ -1,0 +1,35 @@
+# UTC 2026-09-28T12:36:28Z
+# CMD: kubectl --context sorami-lab -n kube-system exec pod/cilium-zzltq -c cilium-agent -- sh -c 'ss -uan | grep 51871; ls -la /host/etc/cni/net.d; head -c 600 /host/etc/cni/net.d/*cilium* 2>/dev/null'
+
+UNCONN 0      0                             0.0.0.0:51871      0.0.0.0:*   
+UNCONN 0      0                                [::]:51871         [::]:*   
+total 8
+drwx------+  2 root root   84 Sep 28 12:22 .
+drwxr-xr-x+  3 root root   19 Sep 28 12:22 ..
+-rw-------+  1 root root    0 Sep 23 07:57 .cni-concurrency.lock
+-rw-------+  1 root root 1101 Sep 28 12:22 05-cilium.conflist
+-rw-r--r--+  1 root root  973 Sep 28 12:01 10-aws.conflist
+{
+  "cniVersion": "0.4.0",
+  "name": "aws-cni",
+  "disableCheck": true,
+  "plugins": [
+    {
+      "name": "aws-cni",
+      "type": "aws-cni",
+      "vethPrefix": "eni",
+      "mtu": "9001",
+      "podSGEnforcingMode": "strict",
+      "pluginLogFile": "/var/log/aws-routed-eni/plugin.log",
+      "pluginLogLevel": "DEBUG",
+      "capabilities": {"io.kubernetes.cri.pod-annotations": true}
+    },
+    {
+      "name": "egress-cni",
+      "type": "egress-cni",
+      "mtu": "9001",
+      "enabled": "false",
+      "randomizeSNAT": "prng",
+      "nodeIP": "",
+      "ipam": {
+         "type": "host-local# EXIT: 0

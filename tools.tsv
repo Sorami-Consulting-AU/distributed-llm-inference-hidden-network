@@ -1,0 +1,12 @@
+component	version	notes
+Amazon EKS	1.35 (v1.35.8-eks)	Amazon VPC CNI with network policy agent enabled
+KubeRay operator and ray-cluster chart	1.7.1	vendor defaults
+Ray	2.52.0	vendor default image
+vLLM production-stack chart	0.1.12	vendor defaults
+vLLM engine image	vllm/vllm-openai:v0.11.0	tag-pinned, digest not recorded
+Cilium (L2b)	1.20.2	chained on the VPC CNI, WireGuard on
+Trivy	0.67.0	static scanner
+Checkov	not logged	static scanner, version not recorded
+Kubescape	v3.0.40	static scanner
+kube-linter	0.8.3	static scanner
+Linkerd	edge, version not recorded	L2a

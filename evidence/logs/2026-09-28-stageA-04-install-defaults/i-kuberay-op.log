@@ -1,0 +1,12 @@
+# UTC 2026-09-28T04:18:42Z
+# CMD: helm --kube-context sorami-lab upgrade --install kuberay-operator kuberay/kuberay-operator --version 1.7.1 -n sorami-lab-stack-kuberay --labels research=sorami-lab --wait --timeout 5m
+
+Release "kuberay-operator" does not exist. Installing it now.
+NAME: kuberay-operator
+LAST DEPLOYED: Mon Sep 28 14:18:51 2026
+NAMESPACE: sorami-lab-stack-kuberay
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+# EXIT: 0

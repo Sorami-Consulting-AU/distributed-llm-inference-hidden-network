@@ -1,0 +1,11 @@
+# UTC 2026-09-28T04:14:54Z
+# CMD: kubectl get pods -A -o wide
+
+NAMESPACE     NAME                      READY   STATUS    RESTARTS   AGE   IP             NODE                                              NOMINATED NODE   READINESS GATES
+kube-system   aws-node-cpbc9            2/2     Running   0          87s   10.99.10.192   ip-10-99-10-192.ap-southeast-2.compute.internal   <none>           <none>
+kube-system   aws-node-z85cd            2/2     Running   0          87s   10.99.34.133   ip-10-99-34-133.ap-southeast-2.compute.internal   <none>           <none>
+kube-system   coredns-7c75bb7b8-6g528   1/1     Running   0          35s   10.99.8.102    ip-10-99-10-192.ap-southeast-2.compute.internal   <none>           <none>
+kube-system   coredns-7c75bb7b8-n9pmb   1/1     Running   0          35s   10.99.9.187    ip-10-99-10-192.ap-southeast-2.compute.internal   <none>           <none>
+kube-system   kube-proxy-9cgq6          1/1     Running   0          32s   10.99.34.133   ip-10-99-34-133.ap-southeast-2.compute.internal   <none>           <none>
+kube-system   kube-proxy-lrbwz          1/1     Running   0          35s   10.99.10.192   ip-10-99-10-192.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

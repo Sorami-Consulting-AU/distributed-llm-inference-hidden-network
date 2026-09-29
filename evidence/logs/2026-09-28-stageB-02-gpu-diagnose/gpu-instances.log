@@ -1,0 +1,4 @@
+# UTC 2026-09-28T04:50:30Z
+# CMD: aws ec2 describe-instances --filters Name=tag:eks:nodegroup-name,Values=sorami-lab-gpu-spot --query 'Reservations[].Instances[].[InstanceId,InstanceType,State.Name,Placement.AvailabilityZone,LaunchTime]' --output text
+
+# EXIT: 0

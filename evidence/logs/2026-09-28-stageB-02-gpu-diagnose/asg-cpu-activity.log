@@ -1,0 +1,13 @@
+# UTC 2026-09-28T04:50:29Z
+# CMD: aws autoscaling describe-scaling-activities --auto-scaling-group-name eks-sorami-lab-cpu-spot-<id-redacted> --max-items 10 --query 'Activities[].[StartTime,StatusCode,Description,Cause]' --output text
+
+2026-09-28T04:47:39.242000+00:00	Successful	Launching a new EC2 instance: i-0c6ebe47ce80caaf2	At 2026-09-28T04:47:37Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 1 to 2.
+2026-09-28T04:47:28.900000+00:00	Successful	Launching a new EC2 instance: i-083e0521c554cae45	At 2026-09-28T04:47:26Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 2.
+2026-09-28T04:47:27.822000+00:00	Failed	Launching a new EC2 instance.  Status Reason: Could not launch Spot Instances. UnfulfillableCapacity - Unable to fulfill capacity due to your request configuration. Please adjust your request and try again. Launching EC2 instance failed.	At 2026-09-28T04:47:26Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 2.
+2026-09-28T04:47:20.565000+00:00	MidTerminatingLifecycleAction	Terminating EC2 instance: i-0254138e8ba77fbc9	At 2026-09-28T04:47:20Z instance i-0254138e8ba77fbc9 was taken out of service in response to an EC2 Spot Instance interruption notice.
+2026-09-28T04:47:20.367000+00:00	Successful	Terminating EC2 instance: i-0ad450bcf204f8169	At 2026-09-28T04:47:20Z instance i-0ad450bcf204f8169 was taken out of service in response to an EC2 Spot Instance interruption notice.
+2026-09-28T04:25:27.492000+00:00	Successful	Terminating EC2 instance: i-0424e07f8835a55c7	At 2026-09-28T04:25:27Z an instance was taken out of service in response to an EC2 instance rebalance recommendation.
+2026-09-28T04:23:42.333000+00:00	Successful	Launching a new EC2 instance: i-0ad450bcf204f8169	At 2026-09-28T04:23:40Z an instance was launched in response to an EC2 instance rebalance recommendation.
+2026-09-28T04:13:11.318000+00:00	Successful	Launching a new EC2 instance: i-0424e07f8835a55c7	At 2026-09-28T04:13:04Z a user request created an AutoScalingGroup changing the desired capacity from 0 to 2.  At 2026-09-28T04:13:09Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 2.
+2026-09-28T04:13:11.276000+00:00	Successful	Launching a new EC2 instance: i-0254138e8ba77fbc9	At 2026-09-28T04:13:04Z a user request created an AutoScalingGroup changing the desired capacity from 0 to 2.  At 2026-09-28T04:13:09Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 2.
+# EXIT: 0

@@ -1,0 +1,25 @@
+# UTC 2026-09-28T11:54:15Z
+# CMD: date -u; aws sts get-caller-identity --query Account --output text; kubectl --context sorami-lab get nodes -L node.kubernetes.io/instance-type; kubectl --context sorami-lab -n kube-system get ds aws-node -o jsonpath='{.spec.template.spec.containers[*].image}'; echo; kubectl --context sorami-lab -n kube-system get ds aws-node -o jsonpath='{range .spec.template.spec.containers[*]}{.name}{" "}{.args}{"\n"}{end}'; kubectl --context sorami-lab get networkpolicy -A; aws eks describe-addon --cluster-name sorami-lab --addon-name vpc-cni --query 'addon.{v:addonVersion,cfg:configurationValues}' --output json; aws eks describe-addon-configuration --addon-name vpc-cni --addon-version $(aws eks describe-addon --cluster-name sorami-lab --addon-name vpc-cni --query addon.addonVersion --output text) --query configurationSchema --output text | python3 -c 'import sys,json; s=json.load(sys.stdin); env=s["properties"]["env"]["properties"]; print("env keys matching encrypt/wireguard/ipsec:", [k for k in env if any(w in k.upper() for w in ("ENCRYPT","WIREGUARD","IPSEC","TLS"))])'
+
+Mon Sep 28 11:54:15 UTC 2026
+111122223333
+NAME                                             STATUS   ROLES    AGE    VERSION               INSTANCE-TYPE
+ip-10-99-11-62.ap-southeast-2.compute.internal   Ready    <none>   4h6m   v1.35.8-eks-f4fc4f1   m6a.xlarge
+ip-10-99-18-6.ap-southeast-2.compute.internal    Ready    <none>   49m    v1.35.8-eks-f4fc4f1   m6a.xlarge
+602401143452.dkr.ecr.ap-southeast-2.amazonaws.com/amazon-k8s-cni:v1.22.4-eksbuild.3 602401143452.dkr.ecr.ap-southeast-2.amazonaws.com/amazon/aws-network-policy-agent:v1.4.0-eksbuild.1
+aws-node 
+aws-eks-nodeagent ["--enable-ipv6=false","--enable-network-policy=true","--enable-cloudwatch-logs=false","--enable-policy-event-logs=false","--log-file=/var/log/aws-routed-eni/network-policy-agent.log","--metrics-bind-addr=:8162","--health-probe-bind-addr=:8163","--conntrack-cache-cleanup-period=300","--conntrack-cache-table-size=524288","--log-level=debug"]
+NAMESPACE                 NAME                                POD-SELECTOR                AGE
+sorami-lab-stack-vllm   sorami-lab-allow-intra-topology   app=sorami-lab-vllm-ray   166m
+sorami-lab-stack-vllm   sorami-lab-allow-vllm-api         app=sorami-lab-vllm-ray   166m
+sorami-lab-stack-vllm   sorami-lab-default-deny-ingress   <none>                      166m
+{
+    "v": "v1.22.4-eksbuild.3",
+    "cfg": "{\"enableNetworkPolicy\":\"true\"}"
+}
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,json; s=json.load(sys.stdin); env=s["properties"]["env"]["properties"]; print("env keys matching encrypt/wireguard/ipsec:", [k for k in env if any(w in k.upper() for w in ("ENCRYPT","WIREGUARD","IPSEC","TLS"))])
+                                                 ~^^^^^^^^^^^^^^
+KeyError: 'properties'
+# EXIT: 1

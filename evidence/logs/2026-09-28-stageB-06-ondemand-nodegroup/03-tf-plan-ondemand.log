@@ -1,0 +1,99 @@
+# UTC 2026-09-28T06:03:18Z
+# CMD: terraform plan -input=false -no-color -var gpu_desired=2 -var gpu_ondemand_desired=0 -target=aws_eks_node_group.gpu_ondemand -out=gpu-ondemand.tfplan
+
+data.aws_iam_policy_document.eks_assume: Reading...
+data.aws_iam_policy_document.node_assume: Reading...
+aws_vpc.this: Refreshing state... [id=vpc-0bebc9d241ddd65e5]
+data.aws_iam_policy_document.eks_assume: Read complete after 0s [id=1029077455]
+data.aws_iam_policy_document.node_assume: Read complete after 0s [id=2851119427]
+aws_iam_role.cluster: Refreshing state... [id=sorami-lab-eks-cluster]
+aws_iam_role.node: Refreshing state... [id=sorami-lab-eks-node]
+aws_subnet.public[1]: Refreshing state... [id=subnet-0c0bcde9b0f3f0476]
+aws_subnet.public[0]: Refreshing state... [id=subnet-048e4c9974803dd90]
+aws_subnet.public[2]: Refreshing state... [id=subnet-02a31b172192bd71a]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=sorami-lab-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=sorami-lab-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=sorami-lab-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=sorami-lab-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_eks_cluster.this: Refreshing state... [id=sorami-lab]
+aws_eks_addon.vpc_cni: Refreshing state... [id=sorami-lab:vpc-cni]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_node_group.gpu_ondemand will be created
+  + resource "aws_eks_node_group" "gpu_ondemand" {
+      + ami_type               = "AL2023_x86_64_NVIDIA"
+      + arn                    = (known after apply)
+      + capacity_type          = "ON_DEMAND"
+      + cluster_name           = "sorami-lab"
+      + disk_size              = 150
+      + id                     = (known after apply)
+      + instance_types         = [
+          + "g6.xlarge",
+          + "g5.xlarge",
+          + "g4dn.xlarge",
+        ]
+      + labels                 = {
+          + "sorami-lab/capacity" = "ondemand"
+          + "sorami-lab/pool"     = "gpu"
+        }
+      + node_group_name        = "sorami-lab-gpu-ondemand"
+      + node_group_name_prefix = (known after apply)
+      + node_role_arn          = "arn:aws:iam::111122223333:role/sorami-lab-eks-node"
+      + region                 = "ap-southeast-2"
+      + release_version        = (known after apply)
+      + resources              = (known after apply)
+      + status                 = (known after apply)
+      + subnet_ids             = [
+          + "subnet-02a31b172192bd71a",
+          + "subnet-048e4c9974803dd90",
+          + "subnet-0c0bcde9b0f3f0476",
+        ]
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Owner"     = "sorami-lab"
+          + "Project"   = "test-harness"
+          + "Purpose"   = "research-ephemeral"
+        }
+      + version                = (known after apply)
+
+      + node_repair_config (known after apply)
+
+      + scaling_config {
+          + desired_size = 0
+          + max_size     = 1
+          + min_size     = 0
+        }
+
+      + taint {
+          + effect = "NO_SCHEDULE"
+          + key    = "sorami-lab/gpu"
+          + value  = "true"
+        }
+
+      + update_config (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Warning: Resource targeting is in effect
+
+You are creating a plan with the -target option, which means that the result
+of this plan may not represent all of the changes requested by the current
+configuration.
+
+The -target option is not for routine use, and is provided only for
+exceptional situations such as recovering from errors or mistakes, or when
+Terraform specifically suggests to use it as part of an error message.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: gpu-ondemand.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "gpu-ondemand.tfplan"
+# EXIT: 0

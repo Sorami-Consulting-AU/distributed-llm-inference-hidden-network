@@ -1,0 +1,6 @@
+# UTC 2026-09-28T05:19:55Z
+# CMD: kubectl --context sorami-lab apply -f test-harness/manifests/stageB-vllm-engine.yaml
+
+deployment.apps/sorami-lab-vllm-engine created
+service/sorami-lab-vllm-engine created
+# EXIT: 0

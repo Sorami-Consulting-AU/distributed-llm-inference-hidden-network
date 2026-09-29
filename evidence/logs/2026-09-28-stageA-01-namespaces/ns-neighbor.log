@@ -1,0 +1,5 @@
+# UTC 2026-09-28T04:17:45Z
+# CMD: kubectl --context sorami-lab create ns sorami-lab-neighbor --dry-run=client -o yaml | kubectl --context sorami-lab label --local -f - research=sorami-lab --dry-run=client -o yaml | kubectl --context sorami-lab apply -f -
+
+namespace/sorami-lab-neighbor created
+# EXIT: 0

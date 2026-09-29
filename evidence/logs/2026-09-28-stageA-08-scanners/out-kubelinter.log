@@ -1,0 +1,17 @@
+# UTC 2026-09-28T04:38:42Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-scanners logs job/scan-kubelinter
+
+KubeLinter 0.8.3
+
+/tmp/w/all-defaults.yaml: (object: sorami-lab-stack-kuberay/kuberay-operator apps/v1, Kind=Deployment) container "kuberay-operator" has cpu request 0 (check: unset-cpu-requirements, remediation: Set CPU requests for your container based on its requirements. Refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits for details.)
+
+/tmp/w/all-defaults.yaml: (object: sorami-lab-stack-vllm/vllm-mistral-engine-service /v1, Kind=Service) no pods found matching service labels (map[app.kubernetes.io/component:serving-engine app.kubernetes.io/instance:vllm app.kubernetes.io/managed-by:helm app.kubernetes.io/name:mistral app.kubernetes.io/part-of:vllm-stack environment:test helm-release-name:vllm model:mistral release:test]) (check: dangling-service, remediation: Confirm that your service's selector correctly matches the labels on one of your deployments.)
+
+/tmp/w/all-defaults.yaml: (object: sorami-lab-stack-vllm/vllm-deployment-router apps/v1, Kind=Deployment) The container "router-container" is using an invalid container image, "lmcache/lmstack-router:latest". Please use images that are not blocked by the `BlockList` criteria : [".*:(latest)$" "^[^:]*$" "(.*/[^:]+)$"] (check: latest-tag, remediation: Use a container image with a specific tag other than latest.)
+
+/tmp/w/all-defaults.yaml: (object: sorami-lab-stack-vllm/vllm-deployment-router apps/v1, Kind=Deployment) container "router-container" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+/tmp/w/all-defaults.yaml: (object: sorami-lab-stack-vllm/vllm-deployment-router apps/v1, Kind=Deployment) container "router-container" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+Error: found 5 lint errors
+# EXIT: 0

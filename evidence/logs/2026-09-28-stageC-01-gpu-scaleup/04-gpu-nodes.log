@@ -1,0 +1,5 @@
+NAME                                             STATUS   ROLES    AGE   VERSION               INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                        KERNEL-VERSION                     CONTAINER-RUNTIME            CAPACITY   INSTANCE-TYPE   ZONE
+ip-10-99-31-72.ap-southeast-2.compute.internal   Ready    <none>   33s   v1.35.8-eks-f4fc4f1   10.99.31.72   <public-ip-redacted>     Amazon Linux 2023.12.20260918   6.12.103-129.197.amzn2023.x86_64   containerd://2.2.7+unknown   ondemand   g5.xlarge       ap-southeast-2b
+ip-10-99-9-134.ap-southeast-2.compute.internal   Ready    <none>   11m   v1.35.8-eks-f4fc4f1   10.99.9.134   <public-ip-redacted>   Amazon Linux 2023.12.20260918   6.12.103-129.197.amzn2023.x86_64   containerd://2.2.7+unknown   ondemand   g4dn.xlarge     ap-southeast-2a
+ip-10-99-31-72.ap-southeast-2.compute.internal  gpu=1  it=g5.xlarge
+ip-10-99-9-134.ap-southeast-2.compute.internal  gpu=1  it=g4dn.xlarge

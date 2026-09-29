@@ -1,0 +1,11 @@
+# UTC 2026-09-28T13:23:06Z
+# CMD: kubectl --context sorami-lab apply -f manifests/stageD-L1-networkpolicy.yaml; kubectl --context sorami-lab get networkpolicy -A
+
+networkpolicy.networking.k8s.io/sorami-lab-default-deny-ingress created
+networkpolicy.networking.k8s.io/sorami-lab-allow-intra-topology created
+networkpolicy.networking.k8s.io/sorami-lab-allow-vllm-api created
+NAMESPACE                 NAME                                POD-SELECTOR                AGE
+sorami-lab-stack-vllm   sorami-lab-allow-intra-topology   app=sorami-lab-vllm-ray   1s
+sorami-lab-stack-vllm   sorami-lab-allow-vllm-api         app=sorami-lab-vllm-ray   1s
+sorami-lab-stack-vllm   sorami-lab-default-deny-ingress   <none>                      1s
+# EXIT: 0

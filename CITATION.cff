@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this data, please cite the Sorami Technical Report."
+title: "The Hidden Network: Ray Control-Plane Exposure in Distributed LLM Inference on Kubernetes"
+type: report
+authors:
+  - name: "Sorami Consulting"
+date-released: 2026-09-29
+url: "https://sorami.com.au/research/distributed-llm-inference-hidden-network/"
+repository-code: "https://github.com/Sorami-Consulting-AU/distributed-llm-inference-hidden-network"
+license: CC-BY-4.0

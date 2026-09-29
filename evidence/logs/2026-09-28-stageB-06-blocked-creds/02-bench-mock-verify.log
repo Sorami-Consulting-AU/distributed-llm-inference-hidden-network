@@ -1,0 +1,5 @@
+# UTC 2026-09-28T05:48:36Z
+# CMD: python3 /tmp/sorami-lab-benchmock/mock.py & sleep 1; python3 bench/bench.py http://127.0.0.1:18000 4 8 /tmp/sorami-lab-benchmock/v.json; kill %1
+
+{"base": "http://127.0.0.1:18000", "concurrency": 4, "requests": 8, "ok": 8, "failed": 0, "wall_s": 0.75, "max_tokens": 128, "req_per_s": 10.599, "out_tok_per_s": 1356.6, "ttft_ms": {"p50": 64.6, "p95": 68.9, "p99": 68.9, "mean": 59.8}, "tpot_ms": {"p50": 2.5, "p95": 2.5, "p99": 2.5, "mean": 2.5}, "e2e_ms": {"p50": 375.2, "p95": 383.2, "p99": 383.2, "mean": 375.3}, "errors": []}
+# EXIT: 0

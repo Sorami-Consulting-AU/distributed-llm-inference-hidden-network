@@ -1,0 +1,6 @@
+# UTC 2026-09-28T12:55:15Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-stack-vllm delete pod -l app=sorami-lab-vllm-ray --wait=true
+
+pod "sorami-lab-vllm-ray-gpu-worker-worker-cctx6" deleted from sorami-lab-stack-vllm namespace
+pod "sorami-lab-vllm-ray-head-sbxrm" deleted from sorami-lab-stack-vllm namespace
+# EXIT: 0

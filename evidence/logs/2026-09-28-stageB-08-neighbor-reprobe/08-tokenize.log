@@ -1,0 +1,4 @@
+# UTC 2026-09-28T06:27:21Z
+# CMD: X curl -s --max-time 20 -H 'Content-Type: application/json' -d '{"model":"Qwen/Qwen2.5-7B-Instruct","prompt":"patient MRN 123456 has a penicillin allergy"}' http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000/tokenize
+
+{"count":16,"max_model_len":8192,"tokens":[22722,28333,45,220,16,17,18,19,20,21,702,264,5750,292,60497,59654],"token_strs":null}# EXIT: 0

@@ -1,0 +1,7 @@
+# UTC 2026-09-28T12:03:30Z
+# CMD: kubectl --context sorami-lab delete -f manifests/stageD-L1-networkpolicy.yaml --ignore-not-found
+
+networkpolicy.networking.k8s.io "sorami-lab-default-deny-ingress" deleted from sorami-lab-stack-vllm namespace
+networkpolicy.networking.k8s.io "sorami-lab-allow-intra-topology" deleted from sorami-lab-stack-vllm namespace
+networkpolicy.networking.k8s.io "sorami-lab-allow-vllm-api" deleted from sorami-lab-stack-vllm namespace
+# EXIT: 0

@@ -1,0 +1,23 @@
+# UTC 2026-09-28T12:02:02Z
+# CMD: aws ec2 describe-security-groups --group-ids sg-0c4ab5754b29fab4d --query 'SecurityGroups[0].{name:GroupName,vpc:VpcId,in:IpPermissions}' --output json
+
+{
+    "name": "eks-cluster-sg-sorami-lab-1984448194",
+    "vpc": "vpc-0bebc9d241ddd65e5",
+    "in": [
+        {
+            "IpProtocol": "-1",
+            "UserIdGroupPairs": [
+                {
+                    "Description": "Allows EFA traffic, which is not matched by CIDR rules.",
+                    "UserId": "111122223333",
+                    "GroupId": "sg-0c4ab5754b29fab4d"
+                }
+            ],
+            "IpRanges": [],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+        }
+    ]
+}
+# EXIT: 0

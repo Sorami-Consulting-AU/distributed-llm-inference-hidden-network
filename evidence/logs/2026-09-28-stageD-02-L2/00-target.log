@@ -1,0 +1,8 @@
+# UTC 2026-09-28T09:43:13Z
+# CMD: echo label='L2 Linkerd mTLS on 8000 path (Ray ports skipped)' svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-nkzgb worker=sorami-lab-vllm-ray-gpu-worker-worker-gvp6w; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-ray-head-nkzgb sorami-lab-vllm-ray-gpu-worker-worker-gvp6w -o wide
+
+label=L2 Linkerd mTLS on 8000 path (Ray ports skipped) svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-nkzgb worker=sorami-lab-vllm-ray-gpu-worker-worker-gvp6w
+NAME                                            READY   STATUS    RESTARTS   AGE     IP             NODE                                             NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-head-nkzgb                2/2     Running   0          6m17s   10.99.27.134   ip-10-99-31-72.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-gpu-worker-worker-gvp6w   2/2     Running   0          6m18s   10.99.10.209   ip-10-99-9-134.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

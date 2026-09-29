@@ -1,0 +1,240 @@
+---
+# Source: vllm-stack/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "vllm-router-service-account"
+  namespace: sorami-lab-stack-vllm
+
+---
+# Source: vllm-stack/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "vllm-secrets"
+  namespace: sorami-lab-stack-vllm
+type: Opaque
+data:
+
+---
+# Source: vllm-stack/templates/pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "vllm-mistral-storage-claim"
+  namespace: sorami-lab-stack-vllm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: ""
+---
+# Source: vllm-stack/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: "vllm-reader"
+  namespace: sorami-lab-stack-vllm
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list", "patch"]
+
+---
+# Source: vllm-stack/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vllm-deployment-access-binding
+  namespace: sorami-lab-stack-vllm
+subjects:
+  - kind: ServiceAccount
+    name: vllm-router-service-account
+    namespace: sorami-lab-stack-vllm
+roleRef:
+  kind: Role
+  name: vllm-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Source: vllm-stack/templates/service-router.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "vllm-router-service"
+  namespace: sorami-lab-stack-vllm
+  labels:
+    app.kubernetes.io/name: router
+    app.kubernetes.io/instance: vllm
+    app.kubernetes.io/component: router
+    app.kubernetes.io/part-of: vllm-stack
+    app.kubernetes.io/managed-by: helm
+    environment: router
+    release: router
+spec:
+  type: ClusterIP
+  ports:
+    - name: "router-sport"
+      port: 80
+      targetPort: 8000
+      protocol: TCP
+    - name: "lmcache-port"
+      port: 9000
+      targetPort: lmcache-port
+      protocol: TCP
+    
+  selector:
+    app.kubernetes.io/name: router
+    app.kubernetes.io/instance: vllm
+    app.kubernetes.io/component: router
+    app.kubernetes.io/part-of: vllm-stack
+    app.kubernetes.io/managed-by: helm
+    environment: router
+    release: router
+
+---
+# Source: vllm-stack/templates/service-vllm.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "vllm-mistral-engine-service"
+  namespace: sorami-lab-stack-vllm
+  labels:
+    app.kubernetes.io/name: mistral
+    app.kubernetes.io/instance: vllm
+    app.kubernetes.io/component: serving-engine
+    app.kubernetes.io/part-of: vllm-stack
+    app.kubernetes.io/managed-by: helm
+    environment: test
+    release: test
+spec:
+  type: ClusterIP
+  ports:
+    - name: "service-port"
+      port: 80
+      targetPort: "container-port"
+      protocol: TCP
+    - name: zmq-port
+      port: 55555
+      targetPort: zmq-port
+      protocol: TCP
+    - name: ucx-port
+      port: 9999
+      targetPort: ucx-port
+      protocol: TCP
+    
+  selector:
+    model: "mistral"
+    helm-release-name: "vllm"
+    app.kubernetes.io/name: mistral
+    app.kubernetes.io/instance: vllm
+    app.kubernetes.io/component: serving-engine
+    app.kubernetes.io/part-of: vllm-stack
+    app.kubernetes.io/managed-by: helm
+    environment: test
+    release: test
+
+---
+# Source: vllm-stack/templates/deployment-router.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "vllm-deployment-router"
+  namespace: sorami-lab-stack-vllm
+  labels:
+    app.kubernetes.io/name: router
+    app.kubernetes.io/instance: vllm
+    app.kubernetes.io/component: router
+    app.kubernetes.io/part-of: vllm-stack
+    app.kubernetes.io/managed-by: helm
+    environment: router
+    release: router
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: router
+      app.kubernetes.io/instance: vllm
+      app.kubernetes.io/component: router
+      app.kubernetes.io/part-of: vllm-stack
+      app.kubernetes.io/managed-by: helm
+      environment: router
+      release: router
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: router
+        app.kubernetes.io/instance: vllm
+        app.kubernetes.io/component: router
+        app.kubernetes.io/part-of: vllm-stack
+        app.kubernetes.io/managed-by: helm
+        environment: router
+        release: router
+    spec:
+      serviceAccountName: vllm-router-service-account
+      containers:
+      - name: router-container
+        image: "lmcache/lmstack-router:latest"
+        imagePullPolicy: "Always"
+        env:
+          - name: PYTHONHASHSEED
+            value: "123"
+          - name: LMCACHE_LOG_LEVEL
+            value: "INFO"
+        args:
+          - "--host"
+          - "0.0.0.0"
+          - "--port"
+          - "8000"
+          - "--service-discovery"
+          - "k8s"
+          - "--k8s-namespace"
+          - "sorami-lab-stack-vllm"
+          - "--k8s-service-discovery-type"
+          - "pod-ip"
+          - "--k8s-label-selector"
+          - environment=test,release=test
+          - "--routing-logic"
+          - "roundrobin"
+          - "--engine-stats-interval"
+          - "15"
+          - "--request-stats-window"
+          - "60"
+        resources:
+          limits:
+            memory: 1000Mi
+          requests:
+            cpu: 400m
+            memory: 1000Mi
+        ports:
+          - name: "router-port"
+            containerPort: 8000
+          - name: "lmcache-port"
+            containerPort: 9000
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: router-port
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        startupProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: router-port
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: router-port
+          initialDelaySeconds: 30
+          periodSeconds: 5

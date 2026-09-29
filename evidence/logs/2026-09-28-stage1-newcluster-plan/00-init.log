@@ -1,0 +1,16 @@
+# UTC 2026-09-28T03:46:27Z
+Initializing provider plugins found in the configuration...
+- Finding hashicorp/aws versions matching "~> 6.0"...
+- Installing hashicorp/aws v6.66.0...
+- Installed hashicorp/aws v6.66.0 (signed by HashiCorp)
+
+Initializing the backend...
+
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+# EXIT: 0

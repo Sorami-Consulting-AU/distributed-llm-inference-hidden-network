@@ -1,0 +1,8 @@
+# UTC 2026-09-28T12:13:09Z
+# CMD: echo label='L0 fresh same-session control (2 x g5.xlarge, no NetworkPolicy, no encryption, no auth)' svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-k5qp5 worker=sorami-lab-vllm-ray-gpu-worker-worker-fb5d6; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-ray-head-k5qp5 sorami-lab-vllm-ray-gpu-worker-worker-fb5d6 -o wide
+
+label=L0 fresh same-session control (2 x g5.xlarge, no NetworkPolicy, no encryption, no auth) svc=http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000 head=sorami-lab-vllm-ray-head-k5qp5 worker=sorami-lab-vllm-ray-gpu-worker-worker-fb5d6
+NAME                                            READY   STATUS    RESTARTS        AGE     IP             NODE                                              NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-head-k5qp5                1/1     Running   0               3m23s   10.99.17.207   ip-10-99-17-131.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-gpu-worker-worker-fb5d6   1/1     Running   1 (2m34s ago)   3m46s   10.99.34.159   ip-10-99-38-120.ap-southeast-2.compute.internal   <none>           <none>
+# EXIT: 0

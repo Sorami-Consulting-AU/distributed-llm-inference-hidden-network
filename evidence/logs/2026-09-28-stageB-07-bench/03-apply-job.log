@@ -1,0 +1,5 @@
+# UTC 2026-09-28T06:04:39Z
+# CMD: kubectl --context sorami-lab apply -f test-harness/manifests/stageB-bench-job.yaml
+
+job.batch/sorami-lab-bench-baseline created
+# EXIT: 0

@@ -1,0 +1,5 @@
+# UTC 2026-09-28T05:19:04Z
+# CMD: kubectl --context sorami-lab get nodes -l sorami-lab/pool=gpu -o jsonpath='{range .items[*]}{.metadata.name} {.metadata.labels.node\.kubernetes\.io/instance-type} gpu={.status.allocatable.nvidia\.com/gpu}{"\n"}{end}'
+
+ip-10-99-23-211.ap-southeast-2.compute.internal g6.xlarge gpu=1
+# EXIT: 0

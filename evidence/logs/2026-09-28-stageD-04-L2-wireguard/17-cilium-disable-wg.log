@@ -1,0 +1,22 @@
+# UTC 2026-09-28T12:37:15Z
+# CMD: helm --kube-context sorami-lab upgrade cilium cilium/cilium --version 1.20.2 -n kube-system -f manifests/stageD-L2b-cilium-values.yaml --set encryption.enabled=false --set cni.uninstall=true --wait --timeout 10m; kubectl --context sorami-lab -n kube-system rollout status ds/cilium --timeout=5m; kubectl --context sorami-lab -n kube-system exec ds/cilium -c cilium-agent -- cilium-dbg status | grep -E 'Encryption|CNI Chaining'
+
+Release "cilium" has been upgraded. Happy Helming!
+NAME: cilium
+LAST DEPLOYED: Mon Sep 28 22:37:16 2026
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 3
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+NOTES:
+You have successfully installed Cilium.
+
+Your release version is 1.20.2.
+
+For any further help, visit https://docs.cilium.io/en/v1.20/gettinghelp
+daemon set "cilium" successfully rolled out
+CNI Chaining:            aws-cni
+Encryption:              Wireguard   [NodeEncryption: Disabled, cilium_wg0 (Pubkey: C+169LqkF4Mqi8JaIUaHqL1WoVsSNARSBJGsaoNYmDU=, Port: 51871, Peers: 3)]
+# EXIT: 0
+note: helm upgrade with encryption.enabled=false removed enable-wireguard from cilium-config, but the DaemonSet template did not change so agents were not restarted and cilium-dbg still reports Wireguard active; this revision is therefore discarded as a no-encryption bracket

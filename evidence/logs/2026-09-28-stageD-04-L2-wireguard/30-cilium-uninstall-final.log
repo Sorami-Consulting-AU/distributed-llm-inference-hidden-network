@@ -1,0 +1,7 @@
+# UTC 2026-09-28T13:22:22Z
+# CMD: kubectl --context sorami-lab -n kube-system get cm cilium-config -o jsonpath='cni-uninstall={.data.cni-uninstall}'; echo; helm --kube-context sorami-lab uninstall cilium -n kube-system --wait --timeout 5m; sleep 30; kubectl --context sorami-lab -n kube-system get pods -l k8s-app=cilium 2>&1
+
+cni-uninstall=true
+release "cilium" uninstalled
+No resources found in kube-system namespace.
+# EXIT: 0

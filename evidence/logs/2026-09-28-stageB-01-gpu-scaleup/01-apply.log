@@ -1,0 +1,15 @@
+# UTC start 2026-09-28T04:39:08Z
+04:39:09Z aws_eks_node_group.gpu: Modifying... [id=sorami-lab:sorami-lab-gpu-spot]
+04:39:19Z aws_eks_node_group.gpu: Still modifying... [id=sorami-lab:sorami-lab-gpu-spot, 00m10s elapsed]
+04:39:29Z aws_eks_node_group.gpu: Still modifying... [id=sorami-lab:sorami-lab-gpu-spot, 00m20s elapsed]
+04:39:39Z aws_eks_node_group.gpu: Still modifying... [id=sorami-lab:sorami-lab-gpu-spot, 00m30s elapsed]
+04:39:49Z aws_eks_node_group.gpu: Still modifying... [id=sorami-lab:sorami-lab-gpu-spot, 00m40s elapsed]
+04:39:53Z aws_eks_node_group.gpu: Modifications complete after 44s [id=sorami-lab:sorami-lab-gpu-spot]
+04:39:53Z 
+04:39:53Z Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+04:39:53Z 
+04:39:53Z Outputs:
+04:39:53Z 
+04:39:53Z cluster_name = "sorami-lab"
+04:39:53Z vpc_id = "vpc-0bebc9d241ddd65e5"
+# EXIT: 0

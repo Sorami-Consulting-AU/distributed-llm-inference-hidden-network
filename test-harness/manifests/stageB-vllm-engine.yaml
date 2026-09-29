@@ -1,0 +1,60 @@
+# Stage B baseline: vLLM engine with upstream defaults (no --api-key, no TLS,
+# no NetworkPolicy) so the neighbor probe measures what an operator gets out
+# of the box. Hardening layers are added in Stage D, not here.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sorami-lab-vllm-engine
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-engine, research: sorami-lab }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: sorami-lab-vllm-engine } }
+  template:
+    metadata:
+      labels: { app: sorami-lab-vllm-engine, research: sorami-lab }
+    spec:
+      nodeSelector: { sorami-lab/pool: gpu }
+      tolerations:
+        - { key: sorami-lab/gpu, operator: Exists, effect: NoSchedule }
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:v0.11.0
+          args:
+            - --model=Qwen/Qwen2.5-7B-Instruct
+            # 8k context keeps fp16 weights (~15 GB) plus KV cache inside the
+            # 24 GB L4; the model's native 32k context would not fit.
+            - --max-model-len=8192
+            - --gpu-memory-utilization=0.90
+            - --port=8000
+          ports:
+            - { name: http, containerPort: 8000 }
+          resources:
+            limits: { nvidia.com/gpu: 1 }
+            requests: { cpu: "2", memory: 12Gi }
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            failureThreshold: 90
+          volumeMounts:
+            - { name: cache, mountPath: /root/.cache/huggingface }
+            # vLLM needs a writable /dev/shm larger than the 64 MB default for
+            # its NCCL and multiprocessing shared buffers.
+            - { name: shm, mountPath: /dev/shm }
+      volumes:
+        - name: cache
+          emptyDir: { sizeLimit: 60Gi }
+        - name: shm
+          emptyDir: { medium: Memory, sizeLimit: 4Gi }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sorami-lab-vllm-engine
+  namespace: sorami-lab-stack-vllm
+  labels: { app: sorami-lab-vllm-engine, research: sorami-lab }
+spec:
+  selector: { app: sorami-lab-vllm-engine }
+  ports:
+    - { name: http, port: 8000, targetPort: 8000 }

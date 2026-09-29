@@ -1,0 +1,42 @@
+Mon Sep 28 13:09:03 UTC 2026
+# stale 05-cilium.conflist left by helm uninstall on all nodes; renamed to .disabled-after-uninstall so containerd falls back to 10-aws.conflist
+== pod/node-debugger-ip-10-99-11-62.ap-southeast-2.compute.internal-d7xmv
+total 8
+drwx------    2 root     root            84 Sep 28 12:22 .
+drwxr-xr-x    3 root     root            19 Sep 23 08:27 ..
+-rw-------    1 root     root             0 Sep 23 08:27 .cni-concurrency.lock
+-rw-------    1 root     root          1101 Sep 28 12:22 05-cilium.conflist
+-rw-r--r--    1 root     root           973 Sep 28 07:48 10-aws.conflist
+== pod/node-debugger-ip-10-99-11-62.ap-southeast-2.compute.internal-fwmct
+05-cilium.conflist.disabled-after-uninstall
+10-aws.conflist
+== pod/node-debugger-ip-10-99-17-131.ap-southeast-2.compute.internal-mcsw7
+05-cilium.conflist.disabled-after-uninstall
+10-aws.conflist
+== pod/node-debugger-ip-10-99-17-131.ap-southeast-2.compute.internal-plspk
+total 8
+drwx------    2 root     root            84 Sep 28 12:22 .
+drwxr-xr-x    3 root     root            19 Sep 23 07:57 ..
+-rw-------    1 root     root             0 Sep 23 07:57 .cni-concurrency.lock
+-rw-------    1 root     root          1101 Sep 28 12:22 05-cilium.conflist
+-rw-r--r--    1 root     root           973 Sep 28 12:01 10-aws.conflist
+== pod/node-debugger-ip-10-99-18-6.ap-southeast-2.compute.internal-hgzcw
+total 8
+drwx------    2 root     root            84 Sep 28 12:22 .
+drwxr-xr-x    3 root     root            19 Sep 23 08:27 ..
+-rw-------    1 root     root             0 Sep 23 08:27 .cni-concurrency.lock
+-rw-------    1 root     root          1101 Sep 28 12:22 05-cilium.conflist
+-rw-r--r--    1 root     root           973 Sep 28 11:04 10-aws.conflist
+== pod/node-debugger-ip-10-99-18-6.ap-southeast-2.compute.internal-nstnr
+05-cilium.conflist.disabled-after-uninstall
+10-aws.conflist
+== pod/node-debugger-ip-10-99-38-120.ap-southeast-2.compute.internal-7vddj
+05-cilium.conflist.disabled-after-uninstall
+10-aws.conflist
+== pod/node-debugger-ip-10-99-38-120.ap-southeast-2.compute.internal-r9bwx
+total 8
+drwx------    2 root     root            84 Sep 28 12:22 .
+drwxr-xr-x    3 root     root            19 Sep 23 07:57 ..
+-rw-------    1 root     root             0 Sep 23 07:57 .cni-concurrency.lock
+-rw-------    1 root     root          1101 Sep 28 12:22 05-cilium.conflist
+-rw-r--r--    1 root     root           973 Sep 28 12:01 10-aws.conflist

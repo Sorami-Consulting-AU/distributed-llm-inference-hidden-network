@@ -1,0 +1,172 @@
+# Stage C distributed topology (fallback per the study plan): Ray-backed vLLM with
+# pipeline parallel across the two GPU nodes. The preferred disaggregated
+# P2pNcclConnector path OOMed in tensor_memory_pool on this vLLM v0.11.0 build
+# (see evidence/logs/2026-09-28-stageC-02-topology/06-p2p-oom-evidence.log), so this Ray
+# PP=2 path is used instead. It still exposes the multi-node "hidden network":
+# Ray GCS 6379, dashboard/job API 8265, object store, and NCCL activations that
+# cross the pod network between PP stage 0 (head) and PP stage 1 (worker).
+#
+# Model Qwen2.5-1.5B-Instruct, dtype=half (T4 has no bf16). Heterogeneous GPUs
+# (A10G 24GB head, T4 16GB worker) and a different model than Stage B, so
+# absolute throughput is NOT comparable to Stage B; only within-stage L0..L3
+# deltas matter. Placement is pinned by hostname and kept identical across all
+# Stage D layers.
+apiVersion: ray.io/v1
+kind: RayCluster
+metadata:
+  name: sorami-lab-vllm-ray
+  namespace: sorami-lab-stack-vllm
+  labels: { research: sorami-lab, app: sorami-lab-vllm-ray }
+spec:
+  rayVersion: "2.52.0"
+  headGroupSpec:
+    rayStartParams: { num-gpus: "1" }
+    template:
+      metadata:
+        labels: { research: sorami-lab, app: sorami-lab-vllm-ray, ray-role: head }
+        # L2 (Stage D): inject the Linkerd proxy so the vLLM 8000 inference path
+        # gets mTLS. Ray's GCS (6379), raylet + object-manager (10002 to 10010),
+        # and its many ephemeral RPC ports (30000+ chosen at runtime) are skipped
+        # because routing them through the proxy deadlocks raylet on this build;
+        # the encryption tax is therefore measured on the meshable serving path.
+        # These annotations are toggled on only for the L2 layer.
+      spec:
+        nodeSelector: { kubernetes.io/hostname: ip-10-99-31-72.ap-southeast-2.compute.internal }
+        tolerations:
+          - { key: sorami-lab/gpu, operator: Exists, effect: NoSchedule }
+        containers:
+          - name: ray-head
+            image: vllm/vllm-openai:v0.11.0
+            # Keep the entrypoint as Ray; vLLM is started by hand after the
+            # cluster forms so PP placement is deterministic across layers.
+            command: ["/bin/bash","-lc"]
+            # Start Ray head, wait for the worker to register, then start vLLM
+            # with PP=2 in the foreground so kubelet manages its lifecycle. The
+            # TORCH_SDPA backend avoids the flashinfer.check_cuda_arch bug that
+            # breaks the T4 (compute capability 7.5) worker in this vLLM build.
+            args:
+              - |
+                set -e
+                ray start --head --num-gpus=1
+                for i in $(seq 1 60); do
+                  n=$(ray status --address auto 2>/dev/null | awk '/^Idle:/{f=1;next} /^Pending:/{f=0} f && /gpu-worker/{print}' | wc -l)
+                  [ "$n" -ge 1 ] && break
+                  sleep 5
+                done
+                # XFormers avoids FlashAttention on the T4 worker (cc 7.5).
+                # Disable the FlashInfer sampler because its JIT builder calls
+                # check_cuda_arch which crashes on cc 7.5. These envs are also
+                # set on the Ray worker container so its actors inherit them.
+                export VLLM_ATTENTION_BACKEND=TORCH_SDPA
+                export VLLM_USE_FLASHINFER_SAMPLER=0
+                export VLLM_WORKER_MULTIPROC_METHOD=spawn
+                # L3: when VLLM_API_KEY is set, require it on every API call so
+                # the unauthenticated cross-namespace access proven in Stage C is
+                # rejected. Empty by default so L0/L1 stay open for their baseline.
+                KEYARG=""
+                [ -n "${VLLM_API_KEY:-}" ] && KEYARG="--api-key ${VLLM_API_KEY}"
+                exec python3 -m vllm.entrypoints.openai.api_server \
+                  --model Qwen/Qwen2.5-1.5B-Instruct \
+                  --dtype half \
+                  --max-model-len 8192 \
+                  --enforce-eager \
+                  ${KEYARG} \
+                  --pipeline-parallel-size 2 \
+                  --tensor-parallel-size 1 \
+                  --distributed-executor-backend ray \
+                  --gpu-memory-utilization 0.6 \
+                  --host 0.0.0.0 --port 8000
+            env:
+              - { name: VLLM_HOST_IP, valueFrom: { fieldRef: { fieldPath: status.podIP } } }
+              # See worker container below for the same envs on the T4 side.
+              - { name: VLLM_ATTENTION_BACKEND, value: "TORCH_SDPA" }
+              - { name: VLLM_USE_FLASHINFER_SAMPLER, value: "0" }
+              # L3 api-key. Sourced from a secret so the key is not in the manifest.
+              # Empty/unset for L0..L2; set to the L3 secret to require auth.
+              - name: VLLM_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: sorami-lab-vllm-apikey
+                    key: apikey
+                    optional: true
+            ports:
+              - { name: gcs, containerPort: 6379 }
+              - { name: dashboard, containerPort: 8265 }
+              - { name: client, containerPort: 10001 }
+              - { name: serve, containerPort: 8000 }
+            # Head pod runs Ray head + vLLM driver (PP stage 0). Readiness
+            # reflects vLLM /health so the Service does not send traffic before
+            # the engine is warm; long failureThreshold covers the model pull +
+            # NCCL init across the two nodes.
+            readinessProbe:
+              exec: { command: ["bash","-lc","curl -fsS http://127.0.0.1:8000/health >/dev/null"] }
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              timeoutSeconds: 5
+              failureThreshold: 120
+            livenessProbe:
+              exec: { command: ["bash","-lc","pgrep -f raylet >/dev/null"] }
+              initialDelaySeconds: 120
+              periodSeconds: 30
+              timeoutSeconds: 5
+              failureThreshold: 12
+            resources:
+              limits: { nvidia.com/gpu: 1 }
+              requests: { cpu: "2", memory: 10Gi }
+            volumeMounts:
+              - { name: cache, mountPath: /root/.cache/huggingface }
+              - { name: shm, mountPath: /dev/shm }
+        volumes:
+          - { name: cache, emptyDir: { sizeLimit: 30Gi } }
+          # NCCL/object-store shared buffers need more than the 64MB default.
+          - { name: shm, emptyDir: { medium: Memory, sizeLimit: 4Gi } }
+  workerGroupSpecs:
+    - groupName: gpu-worker
+      replicas: 1
+      minReplicas: 1
+      maxReplicas: 1
+      rayStartParams: { num-gpus: "1" }
+      template:
+        metadata:
+          labels: { research: sorami-lab, app: sorami-lab-vllm-ray, ray-role: worker }
+          # L2: mesh the worker too so its side of any meshed traffic is mTLS.
+          # Same Ray-port skips as the head; raylet/NCCL stay off the proxy.
+        spec:
+          nodeSelector: { kubernetes.io/hostname: ip-10-99-9-134.ap-southeast-2.compute.internal }
+          tolerations:
+            - { key: sorami-lab/gpu, operator: Exists, effect: NoSchedule }
+          containers:
+            - name: ray-worker
+              image: vllm/vllm-openai:v0.11.0
+              command: ["/bin/bash","-lc"]
+              args: ["ray start --address=sorami-lab-vllm-ray-head-svc.sorami-lab-stack-vllm.svc.cluster.local:6379 --num-gpus=1 --block"]
+              env:
+                - { name: VLLM_HOST_IP, valueFrom: { fieldRef: { fieldPath: status.podIP } } }
+                # Inherited by Ray actor processes launched on this pod so the
+                # T4 side avoids FlashAttention (cc 7.5) and skips the flashinfer
+                # sampler that JIT-crashes on cc 7.5 in this vLLM build.
+                - { name: VLLM_ATTENTION_BACKEND, value: "TORCH_SDPA" }
+                - { name: VLLM_USE_FLASHINFER_SAMPLER, value: "0" }
+              # Same CLI-based probes on the worker; ray status against the
+              # head returns quickly once the worker has joined the cluster.
+              readinessProbe:
+                exec: { command: ["bash","-lc","ray status --address auto >/dev/null 2>&1"] }
+                initialDelaySeconds: 30
+                periodSeconds: 5
+                timeoutSeconds: 5
+                failureThreshold: 60
+              livenessProbe:
+                exec: { command: ["bash","-lc","pgrep -f raylet >/dev/null"] }
+                initialDelaySeconds: 90
+                periodSeconds: 30
+                timeoutSeconds: 5
+                failureThreshold: 6
+              resources:
+                limits: { nvidia.com/gpu: 1 }
+                requests: { cpu: "2", memory: 8Gi }
+              volumeMounts:
+                - { name: cache, mountPath: /root/.cache/huggingface }
+                - { name: shm, mountPath: /dev/shm }
+          volumes:
+            - { name: cache, emptyDir: { sizeLimit: 30Gi } }
+            - { name: shm, emptyDir: { medium: Memory, sizeLimit: 4Gi } }

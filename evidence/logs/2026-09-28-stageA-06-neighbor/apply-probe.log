@@ -1,0 +1,6 @@
+# UTC 2026-09-28T04:23:06Z
+# CMD: kubectl --context sorami-lab apply -f test-harness/manifests/neighbor-probe.yaml && kubectl --context sorami-lab -n sorami-lab-neighbor wait --for=condition=Ready pod/sorami-lab-neighbor --timeout=180s
+
+pod/sorami-lab-neighbor created
+pod/sorami-lab-neighbor condition met
+# EXIT: 0

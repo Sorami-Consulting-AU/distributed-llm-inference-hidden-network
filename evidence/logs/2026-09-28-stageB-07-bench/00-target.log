@@ -1,0 +1,9 @@
+# UTC 2026-09-28T06:04:35Z
+# CMD: echo pod=sorami-lab-vllm-engine-c78b69f68-86xz8 svc=http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pod sorami-lab-vllm-engine-c78b69f68-86xz8 -o wide; kubectl --context sorami-lab get node -l sorami-lab/pool=gpu -L node.kubernetes.io/instance-type,eks.amazonaws.com/capacityType,topology.kubernetes.io/zone
+
+pod=sorami-lab-vllm-engine-c78b69f68-86xz8 svc=http://sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local:8000
+NAME                                       READY   STATUS    RESTARTS   AGE   IP            NODE                                              NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-engine-c78b69f68-86xz8   1/1     Running   0          44m   10.99.22.12   ip-10-99-23-211.ap-southeast-2.compute.internal   <none>           <none>
+NAME                                              STATUS   ROLES    AGE   VERSION               INSTANCE-TYPE   CAPACITYTYPE   ZONE
+ip-10-99-23-211.ap-southeast-2.compute.internal   Ready    <none>   69m   v1.35.8-eks-f4fc4f1   g6.xlarge       SPOT           ap-southeast-2b
+# EXIT: 0

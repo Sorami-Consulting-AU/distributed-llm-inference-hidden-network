@@ -1,0 +1,2 @@
+NAME                                              STATUS   ROLES    AGE   VERSION               INSTANCE-TYPE   CAPACITYTYPE   ZONE              GPU.PRODUCT
+ip-10-99-23-211.ap-southeast-2.compute.internal   Ready    <none>   23m   v1.35.8-eks-f4fc4f1   g6.xlarge       SPOT           ap-southeast-2b   

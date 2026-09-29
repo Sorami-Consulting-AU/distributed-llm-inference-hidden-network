@@ -1,0 +1,11 @@
+# UTC 2026-09-28T04:18:27Z
+# CMD: helm repo add nvdp https://nvidia.github.io/k8s-device-plugin --force-update && helm repo update nvdp && helm search repo nvdp --versions | head -3
+
+"nvdp" has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "nvdp" chart repository
+Update Complete. ⎈Happy Helming!⎈
+NAME                      	CHART VERSION	APP VERSION	DESCRIPTION                                       
+nvdp/gpu-feature-discovery	0.20.1       	0.20.1     	A Helm chart for gpu-feature-discovery on Kuber...
+nvdp/gpu-feature-discovery	0.20.0       	0.20.0     	A Helm chart for gpu-feature-discovery on Kuber...
+# EXIT: 0

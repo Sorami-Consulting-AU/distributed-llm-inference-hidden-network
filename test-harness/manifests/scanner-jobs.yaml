@@ -1,0 +1,94 @@
+# Scanners run in-cluster (no local tooling). ConfigMap volumes are symlinks
+# (..data/), which trivy and checkov skip silently and report as "Not scanned",
+# so each job copies the manifest to a regular file before scanning.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scan-trivy
+  namespace: sorami-lab-scanners
+  labels: { research: sorami-lab, scanner: trivy }
+spec:
+  backoffLimit: 0
+  template:
+    metadata: { labels: { research: sorami-lab } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: s
+          image: aquasec/trivy:0.67.0
+          command: ["sh", "-c"]
+          args:
+            - mkdir -p /tmp/w && cp -L /data/all-defaults.yaml /tmp/w/all-defaults.yaml &&
+              trivy config --format table --exit-code 0 /w
+          volumeMounts: [{ name: d, mountPath: /data }]
+      volumes: [{ name: d, configMap: { name: rendered } }]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scan-kubescape
+  namespace: sorami-lab-scanners
+  labels: { research: sorami-lab, scanner: kubescape }
+spec:
+  backoffLimit: 0
+  template:
+    metadata: { labels: { research: sorami-lab } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: s
+          image: quay.io/kubescape/kubescape-cli:v3.0.40
+          command: ["sh", "-c"]
+          args:
+            - mkdir -p /tmp/w && cp -L /data/all-defaults.yaml /tmp/w/all-defaults.yaml &&
+              kubescape scan /tmp/w/all-defaults.yaml --format pretty-printer --verbose || true
+          volumeMounts: [{ name: d, mountPath: /data }]
+      volumes: [{ name: d, configMap: { name: rendered } }]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scan-kubelinter
+  namespace: sorami-lab-scanners
+  labels: { research: sorami-lab, scanner: kube-linter }
+spec:
+  backoffLimit: 0
+  template:
+    metadata: { labels: { research: sorami-lab } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: s
+          image: stackrox/kube-linter:latest-alpine
+          command: ["sh", "-c"]
+          args:
+            - mkdir -p /tmp/w && cp -L /data/all-defaults.yaml /tmp/w/all-defaults.yaml &&
+              /kube-linter lint /tmp/w/all-defaults.yaml || true
+          volumeMounts: [{ name: d, mountPath: /data }]
+      volumes: [{ name: d, configMap: { name: rendered } }]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scan-checkov
+  namespace: sorami-lab-scanners
+  labels: { research: sorami-lab, scanner: checkov }
+spec:
+  backoffLimit: 0
+  template:
+    metadata: { labels: { research: sorami-lab } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: s
+          image: bridgecrew/checkov:3
+          command: ["sh", "-c"]
+          args:
+            - mkdir -p /tmp/w && cp -L /data/all-defaults.yaml /tmp/w/all-defaults.yaml &&
+              checkov -d /w --framework kubernetes --compact --quiet || true
+          volumeMounts: [{ name: d, mountPath: /data }]
+      volumes: [{ name: d, configMap: { name: rendered } }]

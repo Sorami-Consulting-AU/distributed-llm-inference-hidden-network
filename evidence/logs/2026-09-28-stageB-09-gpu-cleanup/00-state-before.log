@@ -1,0 +1,11 @@
+# UTC 2026-09-28T06:36:57Z
+# CMD: kubectl --context sorami-lab get nodes -L sorami-lab/pool,node.kubernetes.io/instance-type,eks.amazonaws.com/capacityType; for ng in sorami-lab-gpu-spot sorami-lab-gpu-ondemand sorami-lab-cpu-spot; do aws eks describe-nodegroup --cluster-name sorami-lab --nodegroup-name $ng --query 'nodegroup.[nodegroupName,status,capacityType,scalingConfig.desiredSize]' --output text; done
+
+NAME                                              STATUS   ROLES    AGE    VERSION               POOL   INSTANCE-TYPE   CAPACITYTYPE
+ip-10-99-20-246.ap-southeast-2.compute.internal   Ready    <none>   109m   v1.35.8-eks-f4fc4f1          m7i.xlarge      SPOT
+ip-10-99-23-211.ap-southeast-2.compute.internal   Ready    <none>   101m   v1.35.8-eks-f4fc4f1   gpu    g6.xlarge       SPOT
+ip-10-99-39-126.ap-southeast-2.compute.internal   Ready    <none>   47m    v1.35.8-eks-f4fc4f1          m6a.xlarge      SPOT
+sorami-lab-gpu-spot	CREATE_FAILED	SPOT	2
+sorami-lab-gpu-ondemand	ACTIVE	ON_DEMAND	0
+sorami-lab-cpu-spot	ACTIVE	SPOT	2
+# EXIT: 0

@@ -1,0 +1,9 @@
+# UTC 2026-09-28T04:18:05Z
+# CMD: helm search repo kuberay --versions | head -5
+
+NAME                     	CHART VERSION	APP VERSION	DESCRIPTION                                       
+kuberay/kuberay-apiserver	1.7.1        	           	A Helm chart for kuberay-apiserver                
+kuberay/kuberay-apiserver	1.7.0        	           	A Helm chart for kuberay-apiserver                
+kuberay/kuberay-apiserver	1.6.2        	           	A Helm chart for kuberay-apiserver                
+kuberay/kuberay-apiserver	1.6.1        	           	A Helm chart for kuberay-apiserver                
+# EXIT: 0

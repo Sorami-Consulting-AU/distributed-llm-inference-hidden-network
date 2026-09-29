@@ -1,0 +1,42 @@
+# Threat model: an ordinary compromised workload in an unrelated namespace.
+# No ServiceAccount token, non-root, no added capabilities, so anything it can
+# reach, an ordinary pod in an unrelated namespace could reach, not just privileged ones.
+# Deployment (not a bare Pod) so a spot interruption reschedules the probe
+# instead of deleting it, which happened once during Stage B.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sorami-lab-neighbor
+  namespace: sorami-lab-neighbor
+  labels:
+    research: sorami-lab
+    app: neighbor-probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neighbor-probe
+  template:
+    metadata:
+      labels:
+        research: sorami-lab
+        app: neighbor-probe
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: probe
+          image: nicolaka/netshoot:v0.13
+          command: ["sleep", "infinity"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits: { cpu: "1", memory: 512Mi }

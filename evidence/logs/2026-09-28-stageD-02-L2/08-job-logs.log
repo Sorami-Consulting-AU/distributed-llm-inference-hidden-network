@@ -1,0 +1,9 @@
+# UTC 2026-09-28T09:44:19Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-neighbor logs job/sorami-lab-bench-stagec
+
+Defaulted container "bench" out of: bench, linkerd-init (init), linkerd-proxy (init)
+RESULT c=1 {"base": "http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000", "concurrency": 1, "requests": 128, "ok": 0, "failed": 128, "wall_s": 0.36, "max_tokens": 128, "req_per_s": 0.0, "out_tok_per_s": 0.0, "errors": ["<HTTPError 503: 'Service Unavailable'>"]}
+RESULT c=4 {"base": "http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000", "concurrency": 4, "requests": 128, "ok": 0, "failed": 128, "wall_s": 0.13, "max_tokens": 128, "req_per_s": 0.0, "out_tok_per_s": 0.0, "errors": ["<HTTPError 503: 'Service Unavailable'>"]}
+RESULT c=16 {"base": "http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000", "concurrency": 16, "requests": 128, "ok": 0, "failed": 128, "wall_s": 0.13, "max_tokens": 128, "req_per_s": 0.0, "out_tok_per_s": 0.0, "errors": ["<HTTPError 503: 'Service Unavailable'>"]}
+RESULT c=32 {"base": "http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000", "concurrency": 32, "requests": 128, "ok": 0, "failed": 128, "wall_s": 0.13, "max_tokens": 128, "req_per_s": 0.0, "out_tok_per_s": 0.0, "errors": ["<HTTPError 503: 'Service Unavailable'>"]}
+# EXIT: 0

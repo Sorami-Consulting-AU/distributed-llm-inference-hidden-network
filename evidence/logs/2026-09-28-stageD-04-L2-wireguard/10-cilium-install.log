@@ -1,0 +1,26 @@
+# UTC 2026-09-28T12:21:44Z
+# CMD: helm --kube-context sorami-lab install cilium cilium/cilium --version 1.20.2 -n kube-system -f manifests/stageD-L2b-cilium-values.yaml --wait --timeout 10m; kubectl --context sorami-lab -n kube-system get ds cilium; kubectl --context sorami-lab -n kube-system get pods -l k8s-app=cilium -o wide; kubectl --context sorami-lab -n kube-system get deploy cilium-operator
+
+NAME: cilium
+LAST DEPLOYED: Mon Sep 28 22:21:44 2026
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+You have successfully installed Cilium.
+
+Your release version is 1.20.2.
+
+For any further help, visit https://docs.cilium.io/en/v1.20/gettinghelp
+NAME     DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+cilium   4         4         4       4            4           kubernetes.io/os=linux   69s
+NAME           READY   STATUS    RESTARTS   AGE   IP             NODE                                              NOMINATED NODE   READINESS GATES
+cilium-6vf97   1/1     Running   0          70s   10.99.18.6     ip-10-99-18-6.ap-southeast-2.compute.internal     <none>           <none>
+cilium-8x7l4   1/1     Running   0          70s   10.99.38.120   ip-10-99-38-120.ap-southeast-2.compute.internal   <none>           <none>
+cilium-9p8c6   1/1     Running   0          70s   10.99.11.62    ip-10-99-11-62.ap-southeast-2.compute.internal    <none>           <none>
+cilium-zzltq   1/1     Running   0          70s   10.99.17.131   ip-10-99-17-131.ap-southeast-2.compute.internal   <none>           <none>
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+cilium-operator   1/1     1            1           70s
+# EXIT: 0

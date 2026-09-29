@@ -1,0 +1,47 @@
+data.aws_iam_policy_document.node_assume: Reading...
+data.aws_iam_policy_document.eks_assume: Reading...
+aws_vpc.this: Refreshing state... [id=vpc-0bebc9d241ddd65e5]
+data.aws_iam_policy_document.node_assume: Read complete after 0s [id=2851119427]
+data.aws_iam_policy_document.eks_assume: Read complete after 0s [id=1029077455]
+aws_iam_role.node: Refreshing state... [id=sorami-lab-eks-node]
+aws_iam_role.cluster: Refreshing state... [id=sorami-lab-eks-cluster]
+aws_internet_gateway.this: Refreshing state... [id=igw-0af8dbe6c79c1f176]
+aws_subnet.public[0]: Refreshing state... [id=subnet-048e4c9974803dd90]
+aws_subnet.public[2]: Refreshing state... [id=subnet-02a31b172192bd71a]
+aws_subnet.public[1]: Refreshing state... [id=subnet-0c0bcde9b0f3f0476]
+aws_route_table.public: Refreshing state... [id=rtb-043de5853a510e211]
+aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-05cf40cfe5d76709a]
+aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0f834816a37519db5]
+aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0e8c967b49b0d5138]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=sorami-lab-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=sorami-lab-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=sorami-lab-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=sorami-lab-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_eks_cluster.this: Refreshing state... [id=sorami-lab]
+aws_eks_addon.vpc_cni: Refreshing state... [id=sorami-lab:vpc-cni]
+aws_eks_node_group.gpu: Refreshing state... [id=sorami-lab:sorami-lab-gpu-spot]
+aws_eks_node_group.cpu: Refreshing state... [id=sorami-lab:sorami-lab-cpu-spot]
+aws_eks_addon.core["coredns"]: Refreshing state... [id=sorami-lab:coredns]
+aws_eks_addon.core["kube-proxy"]: Refreshing state... [id=sorami-lab:kube-proxy]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_eks_node_group.gpu will be updated in-place
+  ~ resource "aws_eks_node_group" "gpu" {
+        id                     = "sorami-lab:sorami-lab-gpu-spot"
+        tags                   = {}
+        # (17 unchanged attributes hidden)
+
+      ~ scaling_config {
+          ~ desired_size = 2 -> 1
+            # (2 unchanged attributes hidden)
+        }
+
+        # (2 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

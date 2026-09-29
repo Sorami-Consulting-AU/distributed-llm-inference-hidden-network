@@ -1,0 +1,1 @@
+{"base": "http://sorami-lab-vllm-ray-openai.sorami-lab-stack-vllm.svc.cluster.local:8000", "concurrency": 1, "requests": 128, "ok": 0, "failed": 128, "wall_s": 0.36, "max_tokens": 128, "req_per_s": 0.0, "out_tok_per_s": 0.0, "errors": ["<HTTPError 503: 'Service Unavailable'>"]}

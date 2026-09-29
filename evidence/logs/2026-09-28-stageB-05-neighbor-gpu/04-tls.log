@@ -1,0 +1,5 @@
+# UTC 2026-09-28T05:33:56Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-neighbor exec  -- sh -c 'echo | timeout 8 openssl s_client -connect 10.99.22.12:8000 2>&1 | head -5'
+
+error: pod, type/name or --filename must be specified
+# EXIT: 1

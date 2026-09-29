@@ -1,0 +1,4 @@
+== ip-10-99-17-131.ap-southeast-2.compute.internal pod/aws-node-5xvn5
+error: Internal error occurred: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "ddaded4cf47b22eb7b3d46e1cd05aaa9e0c5308548964e8ad4f6189bbd1b704a": OCI runtime exec failed: exec failed: unable to start container process: exec: "sh": executable file not found in $PATH
+== ip-10-99-38-120.ap-southeast-2.compute.internal pod/aws-node-97zj9
+error: Internal error occurred: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "9f1578fbcf3162e4bc26d9d92a43487eaeb4e5a02cf6584e325fcc72a264d595": OCI runtime exec failed: exec failed: unable to start container process: exec: "sh": executable file not found in $PATH

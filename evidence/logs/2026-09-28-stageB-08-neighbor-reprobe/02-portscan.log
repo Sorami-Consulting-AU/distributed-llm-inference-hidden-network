@@ -1,0 +1,18 @@
+# UTC 2026-09-28T06:27:16Z
+# CMD: X nmap -Pn -sT -p 8000,8001,8080,5678,9090,29500,51216 --reason 10.99.22.12
+
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-09-28 06:27 UTC
+Nmap scan report for 10-99-22-12.sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local (10.99.22.12)
+Host is up, received user-set (0.00078s latency).
+
+PORT      STATE  SERVICE     REASON
+5678/tcp  closed rrac        conn-refused
+8000/tcp  open   http-alt    syn-ack
+8001/tcp  closed vcom-tunnel conn-refused
+8080/tcp  closed http-proxy  conn-refused
+9090/tcp  closed zeus-admin  conn-refused
+29500/tcp closed unknown     conn-refused
+51216/tcp closed unknown     conn-refused
+
+Nmap done: 1 IP address (1 host up) scanned in 0.03 seconds
+# EXIT: 0

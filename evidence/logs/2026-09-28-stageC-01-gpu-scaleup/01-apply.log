@@ -1,0 +1,17 @@
+# UTC 2026-09-28T06:56:48Z
+# CMD: terraform apply -input=false -no-color stageC-gpu.tfplan
+
+aws_eks_node_group.gpu: Modifying... [id=sorami-lab:sorami-lab-gpu-spot]
+aws_eks_node_group.gpu_ondemand: Modifying... [id=sorami-lab:sorami-lab-gpu-ondemand]
+aws_eks_node_group.gpu: Modifications complete after 7s [id=sorami-lab:sorami-lab-gpu-spot]
+aws_eks_node_group.gpu_ondemand: Still modifying... [id=sorami-lab:sorami-lab-gpu-ondemand, 00m10s elapsed]
+aws_eks_node_group.gpu_ondemand: Still modifying... [id=sorami-lab:sorami-lab-gpu-ondemand, 00m20s elapsed]
+aws_eks_node_group.gpu_ondemand: Modifications complete after 24s [id=sorami-lab:sorami-lab-gpu-ondemand]
+
+Apply complete! Resources: 0 added, 2 changed, 0 destroyed.
+
+Outputs:
+
+cluster_name = "sorami-lab"
+vpc_id = "vpc-0bebc9d241ddd65e5"
+# EXIT: 0

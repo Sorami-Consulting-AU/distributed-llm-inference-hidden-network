@@ -1,0 +1,9 @@
+# UTC 2026-09-28T04:18:06Z
+# CMD: helm search repo vllm --versions | head -5
+
+NAME           	CHART VERSION	APP VERSION	DESCRIPTION                 
+vllm/vllm-stack	0.1.12       	           	The stack deployment of vLLM
+vllm/vllm-stack	0.1.11       	           	The stack deployment of vLLM
+vllm/vllm-stack	0.1.10       	           	The stack deployment of vLLM
+vllm/vllm-stack	0.1.9        	           	The stack deployment of vLLM
+# EXIT: 0

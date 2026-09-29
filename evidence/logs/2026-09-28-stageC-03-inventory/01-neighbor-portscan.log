@@ -1,0 +1,46 @@
+=== target 10.99.30.236 ===
+   6379 :: Connection to 10.99.30.236 6379 port [tcp/redis] succeeded!
+   8000 :: Connection to 10.99.30.236 8000 port [tcp/*] succeeded!
+   8265 :: nc: connect to 10.99.30.236 port 8265 (tcp) failed: Connection refused
+  10001 :: nc: connect to 10.99.30.236 port 10001 (tcp) failed: Connection refused
+  10002 :: Connection to 10.99.30.236 10002 port [tcp/*] succeeded!
+  10003 :: Connection to 10.99.30.236 10003 port [tcp/*] succeeded!
+  10004 :: Connection to 10.99.30.236 10004 port [tcp/*] succeeded!
+  10005 :: Connection to 10.99.30.236 10005 port [tcp/*] succeeded!
+  10006 :: Connection to 10.99.30.236 10006 port [tcp/*] succeeded!
+  10007 :: nc: connect to 10.99.30.236 port 10007 (tcp) failed: Connection refused
+  10008 :: nc: connect to 10.99.30.236 port 10008 (tcp) failed: Connection refused
+  10009 :: nc: connect to 10.99.30.236 port 10009 (tcp) failed: Connection refused
+  10010 :: nc: connect to 10.99.30.236 port 10010 (tcp) failed: Connection refused
+  20001 :: nc: connect to 10.99.30.236 port 20001 (tcp) failed: Connection refused
+  45000 :: nc: connect to 10.99.30.236 port 45000 (tcp) failed: Connection refused
+  45001 :: nc: connect to 10.99.30.236 port 45001 (tcp) failed: Connection refused
+  45002 :: nc: connect to 10.99.30.236 port 45002 (tcp) failed: Connection refused
+  45003 :: nc: connect to 10.99.30.236 port 45003 (tcp) failed: Connection refused
+  45004 :: nc: connect to 10.99.30.236 port 45004 (tcp) failed: Connection refused
+  45005 :: nc: connect to 10.99.30.236 port 45005 (tcp) failed: Connection refused
+  52365 :: nc: connect to 10.99.30.236 port 52365 (tcp) failed: Connection refused
+  56698 :: nc: connect to 10.99.30.236 port 56698 (tcp) failed: Connection refused
+=== target 10.99.10.63 ===
+   6379 :: nc: connect to 10.99.10.63 port 6379 (tcp) failed: Connection refused
+   8000 :: nc: connect to 10.99.10.63 port 8000 (tcp) failed: Connection refused
+   8265 :: nc: connect to 10.99.10.63 port 8265 (tcp) failed: Connection refused
+  10001 :: nc: connect to 10.99.10.63 port 10001 (tcp) failed: Connection refused
+  10002 :: Connection to 10.99.10.63 10002 port [tcp/*] succeeded!
+  10003 :: nc: connect to 10.99.10.63 port 10003 (tcp) failed: Connection refused
+  10004 :: nc: connect to 10.99.10.63 port 10004 (tcp) failed: Connection refused
+  10005 :: nc: connect to 10.99.10.63 port 10005 (tcp) failed: Connection refused
+  10006 :: nc: connect to 10.99.10.63 port 10006 (tcp) failed: Connection refused
+  10007 :: nc: connect to 10.99.10.63 port 10007 (tcp) failed: Connection refused
+  10008 :: nc: connect to 10.99.10.63 port 10008 (tcp) failed: Connection refused
+  10009 :: nc: connect to 10.99.10.63 port 10009 (tcp) failed: Connection refused
+  10010 :: nc: connect to 10.99.10.63 port 10010 (tcp) failed: Connection refused
+  20001 :: nc: connect to 10.99.10.63 port 20001 (tcp) failed: Connection refused
+  45000 :: nc: connect to 10.99.10.63 port 45000 (tcp) failed: Connection refused
+  45001 :: nc: connect to 10.99.10.63 port 45001 (tcp) failed: Connection refused
+  45002 :: nc: connect to 10.99.10.63 port 45002 (tcp) failed: Connection refused
+  45003 :: nc: connect to 10.99.10.63 port 45003 (tcp) failed: Connection refused
+  45004 :: nc: connect to 10.99.10.63 port 45004 (tcp) failed: Connection refused
+  45005 :: nc: connect to 10.99.10.63 port 45005 (tcp) failed: Connection refused
+  52365 :: nc: connect to 10.99.10.63 port 52365 (tcp) failed: Connection refused
+  56698 :: nc: connect to 10.99.10.63 port 56698 (tcp) failed: Connection refused

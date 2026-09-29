@@ -1,0 +1,10 @@
+# UTC 2026-09-28T04:18:06Z
+# CMD: for r in vllm-project/vllm sgl-project/sglang ray-project/kuberay llm-d/llm-d ai-dynamo/dynamo triton-inference-server/server; do printf '%s ' $r; curl -s https://api.github.com/repos/$r/releases/latest | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("tag_name"), d.get("published_at"))'; done
+
+vllm-project/vllm v0.30.0 2026-09-22T05:20:54Z
+sgl-project/sglang v0.5.20 2026-09-18T22:41:33Z
+ray-project/kuberay v1.7.1 2026-09-21T06:42:58Z
+llm-d/llm-d v0.9.0 2026-08-17T23:38:08Z
+ai-dynamo/dynamo v1.5.0 2026-09-21T20:21:52Z
+triton-inference-server/server v2.72.0 2026-08-31T19:07:38Z
+# EXIT: 0

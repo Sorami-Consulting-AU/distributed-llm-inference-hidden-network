@@ -1,0 +1,28 @@
+# UTC 2026-09-28T04:50:27Z
+# CMD: aws eks describe-nodegroup --cluster-name sorami-lab --nodegroup-name sorami-lab-gpu-spot --query 'nodegroup.{status:status,scaling:scalingConfig,health:health,asg:resources.autoScalingGroups}' --output json
+
+{
+    "status": "DEGRADED",
+    "scaling": {
+        "minSize": 0,
+        "maxSize": 4,
+        "desiredSize": 2
+    },
+    "health": {
+        "issues": [
+            {
+                "code": "AsgInstanceLaunchFailures",
+                "message": "Could not launch Spot Instances. UnfulfillableCapacity - Unable to fulfill capacity due to your request configuration. Please adjust your request and try again. Launching EC2 instance failed.",
+                "resourceIds": [
+                    "eks-sorami-lab-gpu-spot-<id-redacted>"
+                ]
+            }
+        ]
+    },
+    "asg": [
+        {
+            "name": "eks-sorami-lab-gpu-spot-<id-redacted>"
+        }
+    ]
+}
+# EXIT: 0

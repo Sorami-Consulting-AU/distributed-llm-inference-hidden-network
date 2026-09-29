@@ -1,0 +1,31 @@
+# Cilium 1.20.2 chained behind AWS VPC CNI, used only to get WireGuard between pods.
+# VPC CNI keeps IPAM and pod IPs, so existing pods keep working and only pods created
+# after install are Cilium-managed (and therefore encrypted). This keeps the blast
+# radius to the pods we deliberately recreate.
+cni:
+  chainingMode: aws-cni
+  # VPC CNI must stay the primary plugin; exclusive=true would delete its conflist.
+  exclusive: false
+  # WireGuard adds 80 bytes of overhead; without this, chained pods keep the 9001
+  # ENI MTU and large NCCL/Ray frames fragment, which would inflate the measured tax.
+  enableRouteMTUForCNIChaining: true
+# ENI IPs are VPC-routable, so no tunnel and no SNAT are needed. A tunnel would add a
+# second encapsulation and confound the WireGuard-only measurement.
+routingMode: native
+enableIPv4Masquerade: false
+# kube-proxy stays in charge of Services so the Service path is identical to L0.
+kubeProxyReplacement: "false"
+# The L1 NetworkPolicies are enforced by the VPC CNI agent. Cilium must not also
+# enforce, otherwise L2b would measure two policy engines instead of encryption only.
+policyEnforcementMode: never
+encryption:
+  enabled: true
+  type: wireguard
+  # Pod-to-pod covers the Ray GCS, raylet, object store and NCCL channels that Stage C
+  # captured in cleartext. Node-to-node encryption is beta and is not needed for them.
+  nodeEncryption: false
+hubble:
+  enabled: false
+operator:
+  # Two CPU nodes plus two GPU nodes; one replica avoids a pending pod on tainted GPUs.
+  replicas: 1

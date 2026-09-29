@@ -1,0 +1,10 @@
+--- no auth ---
+no-key /v1/models -> 401
+no-key /v1/completions -> 401
+--- wrong key ---
+bad-key /v1/models -> 401
+--- correct key ---
+good-key /v1/completions -> 000
+command terminated with exit code 28
+good-key /v1/models -> 200
+good-key /v1/completions -> 200

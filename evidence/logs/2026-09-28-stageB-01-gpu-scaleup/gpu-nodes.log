@@ -1,0 +1,6 @@
+# UTC 2026-09-28T05:26:30Z
+# CMD: kubectl --context sorami-lab get nodes -l sorami-lab/pool=gpu -L eks.amazonaws.com/capacityType,node.kubernetes.io/instance-type,topology.kubernetes.io/zone
+
+NAME                                              STATUS   ROLES    AGE   VERSION               CAPACITYTYPE   INSTANCE-TYPE   ZONE
+ip-10-99-23-211.ap-southeast-2.compute.internal   Ready    <none>   31m   v1.35.8-eks-f4fc4f1   SPOT           g6.xlarge       ap-southeast-2b
+# EXIT: 0

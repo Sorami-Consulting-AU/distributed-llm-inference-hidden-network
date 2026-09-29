@@ -1,0 +1,5 @@
+# UTC 2026-09-28T12:13:11Z
+# CMD: kubectl --context sorami-lab apply -f /tmp/stagec-bench-job.yaml
+
+job.batch/sorami-lab-bench-stagec created
+# EXIT: 0

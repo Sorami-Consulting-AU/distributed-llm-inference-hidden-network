@@ -1,0 +1,27 @@
+# UTC 2026-09-28T06:02:32Z
+# aws pricing get-products AmazonEC2 ap-southeast-2 Linux Shared OnDemand
+g6.xlarge 4 vCPU 16 GiB 1 GPU USD/hr 1.0464000000
+g5.xlarge 4 vCPU 16 GiB 1 GPU USD/hr 1.3080000000
+g4dn.xlarge 4 vCPU 16 GiB 1 GPU USD/hr 0.6840000000
+
+# spot price history (last 1h) ap-southeast-2
+g5.xlarge	ap-southeast-2c	0.664600	2026-09-28T06:00:00+00:00
+g4dn.xlarge	ap-southeast-2c	0.320400	2026-09-28T06:00:00+00:00
+g6.xlarge	ap-southeast-2b	0.585600	2026-09-28T04:00:00+00:00
+g4dn.xlarge	ap-southeast-2b	0.315100	2026-09-28T04:00:00+00:00
+g4dn.xlarge	ap-southeast-2a	0.307900	2026-09-28T03:00:00+00:00
+g4dn.xlarge	ap-southeast-2c	0.320400	2026-09-28T03:00:00+00:00
+g6.xlarge	ap-southeast-2a	0.609100	2026-09-28T02:00:00+00:00
+g5.xlarge	ap-southeast-2c	0.664900	2026-09-28T01:00:00+00:00
+g5.xlarge	ap-southeast-2b	0.693300	2026-09-28T01:00:00+00:00
+g6.xlarge	ap-southeast-2c	0.545700	2026-09-27T23:00:00+00:00
+
+# offerings by AZ
+g4dn.xlarge	ap-southeast-2a
+g4dn.xlarge	ap-southeast-2b
+g4dn.xlarge	ap-southeast-2c
+g5.xlarge	ap-southeast-2b
+g5.xlarge	ap-southeast-2c
+g6.xlarge	ap-southeast-2a
+g6.xlarge	ap-southeast-2b
+g6.xlarge	ap-southeast-2c

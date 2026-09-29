@@ -1,0 +1,24 @@
+# UTC 2026-09-28T04:14:55Z
+# CMD: aws eks describe-nodegroup --cluster-name sorami-lab --nodegroup-name sorami-lab-gpu-spot --query nodegroup.{status:status,cap:capacityType,scaling:scalingConfig,types:instanceTypes,taints:taints} --output json
+
+{
+    "status": "ACTIVE",
+    "cap": "SPOT",
+    "scaling": {
+        "minSize": 0,
+        "maxSize": 4,
+        "desiredSize": 0
+    },
+    "types": [
+        "g6.xlarge",
+        "g6.2xlarge"
+    ],
+    "taints": [
+        {
+            "key": "sorami-lab/gpu",
+            "value": "true",
+            "effect": "NO_SCHEDULE"
+        }
+    ]
+}
+# EXIT: 0

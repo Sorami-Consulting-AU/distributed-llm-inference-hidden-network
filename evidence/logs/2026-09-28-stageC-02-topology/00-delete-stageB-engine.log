@@ -1,0 +1,6 @@
+# UTC 2026-09-28T07:09:20Z
+# CMD: kubectl --context sorami-lab -n sorami-lab-stack-vllm delete deploy sorami-lab-vllm-engine --ignore-not-found; kubectl --context sorami-lab -n sorami-lab-stack-vllm delete svc sorami-lab-vllm-engine --ignore-not-found
+
+deployment.apps "sorami-lab-vllm-engine" deleted from sorami-lab-stack-vllm namespace
+service "sorami-lab-vllm-engine" deleted from sorami-lab-stack-vllm namespace
+# EXIT: 0

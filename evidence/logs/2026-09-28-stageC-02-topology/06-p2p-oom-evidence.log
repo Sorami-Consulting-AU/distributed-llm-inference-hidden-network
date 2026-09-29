@@ -1,0 +1,13 @@
+(EngineCore_DP0 pid=81) ERROR 09-28 00:47:12 [core.py:708]   File "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/p2p/tensor_memory_pool.py", line 80, in __init__
+(EngineCore_DP0 pid=81) ERROR 09-28 00:47:12 [core.py:708]     self._allocate_pinned_memory()
+(EngineCore_DP0 pid=81) ERROR 09-28 00:47:12 [core.py:708]   File "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/p2p/tensor_memory_pool.py", line 94, in _allocate_pinned_memory
+(EngineCore_DP0 pid=81) ERROR 09-28 00:47:12 [core.py:708]     self.base_tensor = torch.empty(self.max_block_size // 4,
+(EngineCore_DP0 pid=81) ERROR 09-28 00:47:12 [core.py:708]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=81) ERROR 09-28 00:47:12 [core.py:708] torch.AcceleratorError: CUDA error: out of memory
+--
+(EngineCore_DP0 pid=81)   File "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/p2p/tensor_memory_pool.py", line 80, in __init__
+(EngineCore_DP0 pid=81)     self._allocate_pinned_memory()
+(EngineCore_DP0 pid=81)   File "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/p2p/tensor_memory_pool.py", line 94, in _allocate_pinned_memory
+(EngineCore_DP0 pid=81)     self.base_tensor = torch.empty(self.max_block_size // 4,
+(EngineCore_DP0 pid=81)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error exit=1

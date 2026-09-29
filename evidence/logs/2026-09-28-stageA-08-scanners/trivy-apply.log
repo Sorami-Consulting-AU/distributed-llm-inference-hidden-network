@@ -1,0 +1,6 @@
+# UTC 2026-09-28T04:28:34Z
+# CMD: kubectl --context sorami-lab apply -f /tmp/scanner-job.yaml && kubectl --context sorami-lab -n sorami-lab-scanners wait --for=condition=complete job/trivy-config --timeout=300s
+
+job.batch/trivy-config created
+job.batch/trivy-config condition met
+# EXIT: 0

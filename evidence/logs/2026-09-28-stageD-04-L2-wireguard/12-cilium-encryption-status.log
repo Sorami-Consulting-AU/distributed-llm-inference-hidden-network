@@ -1,0 +1,24 @@
+# UTC 2026-09-28T12:25:50Z
+# CMD: for p in pod/cilium-zzltq pod/cilium-8x7l4; do echo == $p; kubectl --context sorami-lab -n kube-system exec $p -c cilium-agent -- cilium-dbg status | grep -E 'Encryption|KubeProxy|CNI Chaining|Routing|Cilium:'; kubectl --context sorami-lab -n kube-system exec $p -c cilium-agent -- cilium-dbg debuginfo --output json 2>/dev/null | python3 -c 'import sys,json; e=json.load(sys.stdin)["encryption"]["wireguard"]["interfaces"][0]; print("iface",e["name"],"port",e["listen-port"],"peers",e["peer-count"]); [print(" peer endpoint",x["endpoint"],"allowed-ips",x.get("allowed-ips"),"last-handshake",x["last-handshake-time"]) for x in e["peers"]]'; done
+
+== pod/cilium-zzltq
+KubeProxyReplacement:    False   
+CNI Chaining:            aws-cni
+Cilium:                  Ok   1.20.2 (v1.20.2-e0dc92bd)
+Routing:                 Network: Native   Host: Legacy
+Encryption:              Wireguard   [NodeEncryption: Disabled, cilium_wg0 (Pubkey: P6l3SqqUPtEOP0D5sjz7amLM8vY+q7OPM9Cl+t+pyxY=, Port: 51871, Peers: 3)]
+iface cilium_wg0 port 51871 peers 3
+ peer endpoint 10.99.11.62:51871 allowed-ips ['10.99.11.62/32', '10.0.0.0/24', '10.0.0.170/32', '10.99.6.44/32', 'fe80::381c:d5ff:fe28:1d36/128'] last-handshake 2026-09-28T12:25:17.501Z
+ peer endpoint 10.99.18.6:51871 allowed-ips ['10.99.18.6/32', '10.0.1.0/24', '10.0.1.44/32', '10.99.25.162/32', 'fe80::1445:1aff:feb2:20b2/128'] last-handshake 2026-09-28T12:25:17.501Z
+ peer endpoint 10.99.38.120:51871 allowed-ips ['10.99.38.120/32', '10.0.2.0/24', '10.0.2.166/32', '10.99.33.127/32', 'fe80::a400:a6ff:fe72:beac/128'] last-handshake 2026-09-28T12:25:16.948Z
+== pod/cilium-8x7l4
+KubeProxyReplacement:    False   
+CNI Chaining:            aws-cni
+Cilium:                  Ok   1.20.2 (v1.20.2-e0dc92bd)
+Routing:                 Network: Native   Host: Legacy
+Encryption:              Wireguard   [NodeEncryption: Disabled, cilium_wg0 (Pubkey: z8cklMpWXhiK707/zRL3gZUC1Ws7pUu8wA0ZDd9kthE=, Port: 51871, Peers: 3)]
+iface cilium_wg0 port 51871 peers 3
+ peer endpoint 10.99.18.6:51871 allowed-ips ['10.99.18.6/32', '10.0.1.44/32', '10.0.1.0/24', '10.99.25.162/32', 'fe80::1445:1aff:feb2:20b2/128'] last-handshake 2026-09-28T12:24:21.483Z
+ peer endpoint 10.99.11.62:51871 allowed-ips ['10.99.11.62/32', '10.0.0.0/24', '10.0.0.170/32', '10.99.6.44/32', 'fe80::381c:d5ff:fe28:1d36/128'] last-handshake 2026-09-28T12:24:25.885Z
+ peer endpoint 10.99.17.131:51871 allowed-ips ['10.99.17.131/32', '10.0.3.0/24', '10.0.3.65/32', '10.99.19.25/32', 'fe80::49a:6cff:fe03:ca2f/128'] last-handshake 2026-09-28T12:25:16.947Z
+# EXIT: 0

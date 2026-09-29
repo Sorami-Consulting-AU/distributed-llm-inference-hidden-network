@@ -1,0 +1,1 @@
+engine_pod_ip=10.99.22.12 svc=sorami-lab-vllm-engine.sorami-lab-stack-vllm.svc.cluster.local

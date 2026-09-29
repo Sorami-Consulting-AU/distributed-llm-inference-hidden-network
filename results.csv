@@ -1,0 +1,37 @@
+layer,description,concurrency,requests,ok,failed,wall_s,req_per_s,out_tok_per_s,ttft_p50_ms,ttft_p95_ms,ttft_p99_ms,tpot_p50_ms,tpot_p95_ms,tpot_p99_ms,e2e_p50_ms,e2e_p95_ms,e2e_p99_ms,source
+B,single-GPU vLLM engine baseline (Stage B),1,128,128,0,940.2,0.136,17.4,69.2,71.8,78.8,57.3,57.3,57.4,7344.9,7352.3,7354.6,evidence/logs/2026-09-28-stageB-07-bench/result-c1.json
+B,single-GPU vLLM engine baseline (Stage B),4,128,128,0,241.26,0.531,67.9,121.9,122.9,153.3,58.4,58.5,58.5,7538.4,7546.8,7567.2,evidence/logs/2026-09-28-stageB-07-bench/result-c4.json
+B,single-GPU vLLM engine baseline (Stage B),16,128,128,0,61.85,2.07,264.9,135.3,152.4,175.5,59.8,59.9,59.9,7725.3,7744.8,7765.4,evidence/logs/2026-09-28-stageB-07-bench/result-c16.json
+B,single-GPU vLLM engine baseline (Stage B),32,128,128,0,33.63,3.807,487.2,173.9,192.6,217.5,64.7,64.9,65.1,8393.2,8430.3,8451.5,evidence/logs/2026-09-28-stageB-07-bench/result-c32.json
+C,two-node Ray pipeline-parallel baseline (Stage C),1,128,128,0,476.01,0.269,34.4,38.2,47.7,51.4,28.9,31.3,32.7,3712.4,4026.4,4186.3,evidence/logs/2026-09-28-stageC-06-bench/result-c1.json
+C,two-node Ray pipeline-parallel baseline (Stage C),4,128,128,0,138.01,0.927,118.7,59.7,386.4,7397.3,32.1,34.1,34.3,4138.9,4497.6,11748.2,evidence/logs/2026-09-28-stageC-06-bench/result-c4.json
+C,two-node Ray pipeline-parallel baseline (Stage C),16,128,128,0,40.02,3.198,409.4,81.5,798.5,800.8,37.3,41.7,41.7,4807.4,5795.4,5797.1,evidence/logs/2026-09-28-stageC-06-bench/result-c16.json
+C,two-node Ray pipeline-parallel baseline (Stage C),32,128,128,0,38.17,3.353,429.2,474.6,10024.8,10028.8,54.0,56.7,131.1,7330.0,16881.9,16899.2,evidence/logs/2026-09-28-stageC-06-bench/result-c32.json
+L0,Stage D L0 (byte-identical copy of the Stage C files),1,128,128,0,476.01,0.269,34.4,38.2,47.7,51.4,28.9,31.3,32.7,3712.4,4026.4,4186.3,evidence/logs/2026-09-28-stageD-00-L0/result-c1.json
+L0,Stage D L0 (byte-identical copy of the Stage C files),4,128,128,0,138.01,0.927,118.7,59.7,386.4,7397.3,32.1,34.1,34.3,4138.9,4497.6,11748.2,evidence/logs/2026-09-28-stageD-00-L0/result-c4.json
+L0,Stage D L0 (byte-identical copy of the Stage C files),16,128,128,0,40.02,3.198,409.4,81.5,798.5,800.8,37.3,41.7,41.7,4807.4,5795.4,5797.1,evidence/logs/2026-09-28-stageD-00-L0/result-c16.json
+L0,Stage D L0 (byte-identical copy of the Stage C files),32,128,128,0,38.17,3.353,429.2,474.6,10024.8,10028.8,54.0,56.7,131.1,7330.0,16881.9,16899.2,evidence/logs/2026-09-28-stageD-00-L0/result-c32.json
+L1,ingress default-deny NetworkPolicy,1,128,128,0,473.04,0.271,34.6,38.0,47.9,49.4,28.7,31.0,31.8,3685.8,3979.5,4074.5,evidence/logs/2026-09-28-stageD-01-L1/result-c1.json
+L1,ingress default-deny NetworkPolicy,4,128,128,0,126.56,1.011,129.5,60.4,91.9,405.4,30.7,32.4,32.8,3954.7,4176.5,4572.8,evidence/logs/2026-09-28-stageD-01-L1/result-c4.json
+L1,ingress default-deny NetworkPolicy,16,128,128,0,41.17,3.109,398.0,92.7,986.9,988.2,37.2,42.5,42.5,4801.9,6079.6,6082.1,evidence/logs/2026-09-28-stageD-01-L1/result-c16.json
+L1,ingress default-deny NetworkPolicy,32,128,128,0,28.8,4.444,568.8,165.1,837.0,839.3,54.1,54.5,57.4,7031.6,7760.3,7776.2,evidence/logs/2026-09-28-stageD-01-L1/result-c32.json
+L2a,Linkerd mTLS (every request failed),1,128,0,128,0.36,0.0,0.0,,,,,,,,,,evidence/logs/2026-09-28-stageD-02-L2/result-c1.json
+L2a,Linkerd mTLS (every request failed),4,128,0,128,0.13,0.0,0.0,,,,,,,,,,evidence/logs/2026-09-28-stageD-02-L2/result-c4.json
+L2a,Linkerd mTLS (every request failed),16,128,0,128,0.13,0.0,0.0,,,,,,,,,,evidence/logs/2026-09-28-stageD-02-L2/result-c16.json
+L2a,Linkerd mTLS (every request failed),32,128,0,128,0.13,0.0,0.0,,,,,,,,,,evidence/logs/2026-09-28-stageD-02-L2/result-c32.json
+L3,vLLM engine API key,1,128,128,0,478.05,0.268,34.3,38.6,48.4,51.5,29.0,31.5,32.3,3717.9,4044.7,4138.7,evidence/logs/2026-09-28-stageD-03-L3/result-c1.json
+L3,vLLM engine API key,4,128,128,0,134.42,0.952,121.9,61.1,385.8,7405.5,30.8,32.5,32.7,3970.0,4487.8,11537.1,evidence/logs/2026-09-28-stageD-03-L3/result-c4.json
+L3,vLLM engine API key,16,128,128,0,50.1,2.555,327.0,73.4,10606.2,10624.3,37.0,40.3,41.8,4776.7,15584.5,15604.3,evidence/logs/2026-09-28-stageD-03-L3/result-c16.json
+L3,vLLM engine API key,32,128,128,0,29.46,4.346,556.2,218.0,786.5,1028.2,54.0,61.5,61.5,7174.6,8597.5,8599.4,evidence/logs/2026-09-28-stageD-03-L3/result-c32.json
+L0-before,"L2b session, baseline before",1,128,128,0,322.63,0.397,50.8,29.2,33.6,38.7,19.6,20.4,20.6,2522.0,2619.5,2655.0,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-before/result-c1.json
+L0-before,"L2b session, baseline before",4,128,128,0,87.77,1.458,186.7,40.5,56.1,105.0,21.2,22.0,22.2,2730.1,2830.7,2860.3,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-before/result-c4.json
+L0-before,"L2b session, baseline before",16,128,128,0,24.09,5.313,680.1,51.8,88.2,100.4,23.1,23.9,24.0,2984.8,3102.8,3104.9,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-before/result-c16.json
+L0-before,"L2b session, baseline before",32,128,128,0,13.89,9.217,1179.8,75.8,144.2,149.5,26.6,27.9,27.9,3434.3,3615.4,3617.3,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-before/result-c32.json
+L2b,"Cilium chained on VPC CNI, WireGuard on",1,128,128,0,336.35,0.381,48.7,31.4,35.0,37.4,20.4,21.2,21.7,2618.4,2720.4,2783.1,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L2b/result-c1.json
+L2b,"Cilium chained on VPC CNI, WireGuard on",4,128,128,0,91.44,1.4,179.2,43.4,65.8,117.5,22.1,23.0,23.2,2853.9,2967.0,2991.4,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L2b/result-c4.json
+L2b,"Cilium chained on VPC CNI, WireGuard on",16,128,128,0,25.67,4.986,638.2,60.6,80.3,100.5,24.9,25.2,25.3,3216.2,3264.9,3270.0,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L2b/result-c16.json
+L2b,"Cilium chained on VPC CNI, WireGuard on",32,128,128,0,14.67,8.726,1116.9,97.2,125.8,158.1,28.4,28.8,28.9,3665.8,3759.8,3763.1,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L2b/result-c32.json
+L0-after,"L2b session, baseline after",1,128,128,0,326.77,0.392,50.1,28.8,33.3,36.0,19.8,20.7,21.0,2550.2,2659.0,2696.5,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-after/result-c1.json
+L0-after,"L2b session, baseline after",4,128,128,0,88.83,1.441,184.4,41.2,49.6,116.4,21.5,22.3,22.4,2766.7,2872.7,2880.1,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-after/result-c4.json
+L0-after,"L2b session, baseline after",16,128,128,0,24.94,5.131,656.8,57.3,90.9,100.0,24.2,24.9,24.9,3119.8,3210.1,3214.2,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-after/result-c16.json
+L0-after,"L2b session, baseline after",32,128,128,0,13.55,9.445,1209.0,57.5,150.7,178.7,25.8,27.1,27.2,3326.8,3596.7,3626.6,evidence/logs/2026-09-28-stageD-04-L2-wireguard/bench-L0-after/result-c32.json

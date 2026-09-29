@@ -1,0 +1,11 @@
+# UTC 2026-09-28T12:03:53Z
+# CMD: kubectl --context sorami-lab apply -f manifests/stageD-L2b-ray-pp.yaml; kubectl --context sorami-lab -n sorami-lab-stack-vllm delete pod -l app=sorami-lab-vllm-ray --wait=true; kubectl --context sorami-lab -n sorami-lab-stack-vllm get pods -o wide
+
+raycluster.ray.io/sorami-lab-vllm-ray configured
+pod "sorami-lab-vllm-ray-gpu-worker-worker-298nd" deleted from sorami-lab-stack-vllm namespace
+pod "sorami-lab-vllm-ray-head-w4j8x" deleted from sorami-lab-stack-vllm namespace
+NAME                                            READY   STATUS              RESTARTS      AGE   IP             NODE                                              NOMINATED NODE   READINESS GATES
+sorami-lab-vllm-ray-gpu-worker-worker-fb5d6   0/1     Running             0             23s   10.99.34.159   ip-10-99-38-120.ap-southeast-2.compute.internal   <none>           <none>
+sorami-lab-vllm-ray-head-k5qp5                0/1     ContainerCreating   0             0s    <none>         ip-10-99-17-131.ap-southeast-2.compute.internal   <none>           <none>
+vllm-deployment-router-85ffc679b9-mwvwc         1/1     Running             1 (61m ago)   64m   10.99.29.241   ip-10-99-18-6.ap-southeast-2.compute.internal     <none>           <none>
+# EXIT: 0
